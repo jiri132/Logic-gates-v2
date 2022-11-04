@@ -15,10 +15,14 @@ namespace Logic
         #endregion
 
         #region Variables
+        [Header("Linking bridge")]
         [SerializeField]private List<LogicLink> link;
 
+        [Header("Gate Type")]
         [SerializeField]private TYPES _type;
-        private int[] _outputs = new int[1] { 0 };
+
+        [Header("Internal Data")]
+        [SerializeField]private int[] _outputs = new int[1] { 0 };
 
         public int[] outputs
         {
@@ -29,7 +33,7 @@ namespace Logic
                 // ADD function calls here
             }
         }
-        private int[] _inputs;
+        [SerializeField]private int[] _inputs;
         public int[] inputs
         {
             get { return _inputs; }

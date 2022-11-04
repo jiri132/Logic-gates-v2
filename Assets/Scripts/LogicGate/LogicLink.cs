@@ -8,9 +8,11 @@ namespace Logic
     [System.Serializable]
     public class LogicLink
     {
+        [Header("Link Modules Owner")]
         public LogicGate _self;
         public int _outputIndex;
 
+        [Header("Links to Others")]
         public List<Relation> relations; 
 
         public LogicLink(LogicGate _self,int _outputIndex)
@@ -38,6 +40,7 @@ namespace Logic
     [System.Serializable]
     public class Relation
     {
+        [Header("Others Information")]
         public LogicGate _gate;
         public int _inputIndex;
 
