@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Logic 
 {
-    
-
     public class LogicGate : LogicComponent
     {
         #region Constructors
@@ -17,7 +15,7 @@ namespace Logic
         #endregion
 
         #region Variables
-        public LogicLink links;
+        [SerializeField]private List<LogicLink> link;
 
         [SerializeField]private TYPES _type;
         private int[] _outputs = new int[1] { 0 };
@@ -45,8 +43,15 @@ namespace Logic
 
         public override void Start()
         {
+            _outputs = new int[1] { 0 };
             //if the input gets selected 
             _inputs = _type == TYPES.NOT ? new int[1] { 0 } : new int[2] { 0 , 0 };
+
+            //make al lthe link modules connected to each output node
+            for (int i = 0; i < _outputs.Length; i++)
+            {
+                link.Add(new LogicLink(this, i));
+            }
         }
 
         #region Overrides of Component

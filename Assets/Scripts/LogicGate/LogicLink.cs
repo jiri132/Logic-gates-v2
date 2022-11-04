@@ -27,7 +27,7 @@ namespace Logic
         {
             foreach (Relation relation in relations)
             {
-                int index = relation._index;
+                int index = relation._inputIndex;
                 LogicGate relation_gate = relation._gate;
 
                 relation_gate.inputs[index] = powered == true ? 1 : 0;
@@ -35,15 +35,16 @@ namespace Logic
         }
     }
 
+    [System.Serializable]
     public class Relation
     {
         public LogicGate _gate;
-        public int _index;
+        public int _inputIndex;
 
         public Relation(LogicGate relation, int index)
         {
             _gate = relation;
-            _index = index;
+            _inputIndex = index;
         }
     }
 
