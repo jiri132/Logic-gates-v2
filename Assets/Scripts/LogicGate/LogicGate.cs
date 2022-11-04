@@ -27,20 +27,22 @@ namespace Logic
         public int[] outputs
         {
             get { return _outputs; }
-            set
+            protected set
             {
                 _outputs = value;
                 // ADD function calls here
+                LinkDataTransfer();
             }
         }
         [SerializeField]private int[] _inputs;
         public int[] inputs
         {
             get { return _inputs; }
-            set
+            protected set
             {
                 _inputs = value;
                 // ADD function calls here
+                Activation();
             }
         }
         #endregion
@@ -56,6 +58,47 @@ namespace Logic
             {
                 link.Add(new LogicLink(this, i));
             }
+            link[0].CreateRelation(this,0);
+            Activation();
+        }
+
+        /// <summary>
+        /// Checks if it can activate based on the logic gate it is
+        /// </summary>
+        void Activation()
+        {
+            Debug.Log("Activation");
+            switch (_type)
+            {
+                case TYPES.NOT:
+                    if (inputs[0] == 0) { outputs = new int[1] { 1 }; }
+                    else { outputs[0] = 0; }
+                    break;
+                case TYPES.AND:
+                    if (inputs[0] == 1 && inputs[1] == 1) { outputs = new int[1] { 1 }; } 
+                    else { outputs[0] = 0; }
+                    break;
+                case TYPES.OR:
+                    if (inputs[0] == 1 || inputs[1] == 1) { outputs = new int[1] { 1 }; } 
+                    else { outputs[0] = 0; }
+                    break;
+                case TYPES.CUSTOM:
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+        void LinkDataTransfer()
+        {
+            Debug.Log("link data");
+            //loop through all the outputs 
+            for (int i = 0; i < outputs.Length; i++)
+            {
+                //if an output is active send a notification to the relation else also sent notification
+                if (outputs[i] == 1) { link[i].Trigger(true); }
+                else { link[i].Trigger(false); }
+            }
         }
 
         #region Overrides of Component
@@ -64,17 +107,23 @@ namespace Logic
         {
             return _type;
         }
-        public override int[] GetInputsData()
-        {
-            return inputs;
-        }
+        public override int[] GetInputData() => inputs;
+       
 
-        public override int[] GetOutputsData()
-        {
-            return outputs;
-        }
-
+        public override int[] GetOutputData() => outputs;
         
+        public override void SetInputData(int[] data)
+        {
+            inputs = data;
+            Activation();
+        }
+        public override void SetInputData(int data, int index)
+        {
+            inputs[index] = data;
+            Activation();
+        }
+
+
         #endregion
     }
 }

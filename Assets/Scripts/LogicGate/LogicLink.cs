@@ -12,9 +12,10 @@ namespace Logic
         public LogicGate _self;
         public int _outputIndex;
 
+        //TODO: relations act when the _self is active but relation is not set before activation
         [Header("Links to Others")]
         public List<Relation> relations; 
-
+        
         public LogicLink(LogicGate _self,int _outputIndex)
         {
             //create the object
@@ -25,6 +26,7 @@ namespace Logic
             relations = new List<Relation>();
         }
 
+        //based on the powered notification switch on or off the input
         public void Trigger(bool powered)
         {
             foreach (Relation relation in relations)
@@ -32,8 +34,18 @@ namespace Logic
                 int index = relation._inputIndex;
                 LogicGate relation_gate = relation._gate;
 
-                relation_gate.inputs[index] = powered == true ? 1 : 0;
+                //get the whole data set and change only the needed index
+                int[] data = relation._gate.inputs;
+                data[index] = powered == true ? 1 : 0;
+
+                //set all the data back as new and fire off the activation function
+                relation_gate.SetInputData(data);
             }
+        }
+
+        public void CreateRelation(LogicGate other, int index)
+        {
+            relations.Add(new Relation(other, index));
         }
     }
 

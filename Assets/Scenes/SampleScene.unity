@@ -160,7 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a3b35f90529e64daa17f9b20233492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gate: {fileID: 1096621049}
+  input_value: 0
+  gate1: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -247,9 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74645d4845f7ce94f99cc225b1412dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
-  _inputs: 0
-  _outputs: 0
+  link: []
+  _type: 0
+  _outputs: 
+  _inputs: 
 --- !u!4 &1096621050
 Transform:
   m_ObjectHideFlags: 0

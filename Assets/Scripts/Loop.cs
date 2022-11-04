@@ -5,7 +5,11 @@ using Logic;
 
 public class Loop : MonoBehaviour
 {
-    public LogicGate gate;
+    [Range(0,1)]
+    public int input_value;
+
+    public LogicGate gate1;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +21,6 @@ public class Loop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //gate.SetInputData(input_value,0);
     }
 }
