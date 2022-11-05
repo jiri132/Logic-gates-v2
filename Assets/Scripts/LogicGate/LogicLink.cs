@@ -46,6 +46,13 @@ namespace Logic
         public void CreateRelation(LogicGate other, int index)
         {
             relations.Add(new Relation(other, index));
+
+
+            //acts as an Observable when connecting
+            if (this._self.outputs[this._outputIndex] == 1) 
+            {
+                other.inputs[index] = 1;
+            }
         }
     }
 
