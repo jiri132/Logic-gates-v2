@@ -9,12 +9,11 @@ public class Loop : MonoBehaviour
     public int input_value;
 
     
-    
 
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log(gate.GetInputs());
+       // Debug.Log(x.Get(0));
         
     }
 

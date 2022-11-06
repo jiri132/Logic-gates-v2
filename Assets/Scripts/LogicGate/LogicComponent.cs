@@ -6,7 +6,8 @@ namespace Logic
 {
     public abstract class LogicComponent : MonoBehaviour
     {
-        //usefd in old system
+        #region Base Variables
+        //used in old system
         //public abstract TYPES GetLogicType();
 
         [Header("LogicGate Name")]
@@ -18,8 +19,8 @@ namespace Logic
 
         [Header("Internal Data")]
         [SerializeField]
-        private int[] _inputs = new int[1] { 0 };
-        public int[] inputs
+        private byte[] _inputs = new byte[1] { 0 };
+        public byte[] inputs
         {
             get { return _inputs; }
             set
@@ -31,8 +32,8 @@ namespace Logic
             }
         }
         [SerializeField]
-        private int[] _outputs = new int[1] { 0 };
-        public int[] outputs
+        private byte[] _outputs = new byte[1] { 0 };
+        public byte[] outputs
         {
             get { return _outputs; }
             set
@@ -44,34 +45,49 @@ namespace Logic
             }
         }
 
-        /* placed Inputs and outputs right here so function aren't needed anymore
-         * to acces them in the custom classes use base.<variable>
-         * public abstract int[] GetInputData();
-         * public abstract int[] GetOutputData();
-         * public abstract void SetInputData(int[] data);
-         * public abstract void SetInputData(int data,int index);
-         */
+        #endregion
+
+        #region Abstracts
 
         public abstract void Start();
         public abstract void Propegate();
+
+        #endregion
+
+        #region Virtuals
+
+        /// <summary>
+        /// just the basic setup to be completed when waking up the script
+        /// </summary>
+        /// <param name="name">logic gate name</param>
+        /// <param name="gate">it self</param>
+        /// <param name="inputs">the total input nodes</param>
+        /// <param name="outputs">the total output nodes</param>
+        public virtual void Setup(string name, LogicComponent gate, byte[] inputs, byte[] outputs)
+        {
+            NameSetup(name);
+            IOSetup(inputs,outputs);
+            BridgeSetup(gate);
+        }
+
         /// <summary>
         /// this is the hardcoded setup for inputs and outputs
         /// </summary>
         /// <param name="inputs">output nodes</param>
         /// <param name="outputs">input nodes</param>
-        public virtual void IOSetup(int[] inputs, int[] outputs)
+        public virtual void IOSetup(byte[] inputs, byte[] outputs)
         {
             _inputs = inputs;
             _outputs = outputs;
         }
+
         /// <summary>
         /// This is the base setup for having the brigde open and set to go
         /// </summary>
         /// <param name="gate">Him self</param>
         /// <param name="name">The name of the gate</param>
-        public virtual void BridgeSetup(LogicComponent gate, string name)
+        public virtual void BridgeSetup(LogicComponent gate)
         {
-            this.name = name;
             this.bridge._self = gate;
 
             if (bridge.links.Length == 0) { bridge.links = new LogicLink[outputs.Length]; }
@@ -81,6 +97,16 @@ namespace Logic
                 bridge.links[i]._self = gate;
             }
         }
+
+        public virtual void NameSetup(string name)
+        {
+            this.name = name;
+        }
+
+
+
+        #endregion
+
 
     }
 }

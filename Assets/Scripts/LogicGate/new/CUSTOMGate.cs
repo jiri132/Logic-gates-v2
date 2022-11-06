@@ -11,8 +11,8 @@ namespace Logic
         public CUSTOMGate(int inputs, int outputs, string name)
         {
             base.name = name;
-            base.inputs = new int[inputs];
-            base.outputs = new int[outputs];
+            base.inputs = new byte[inputs];
+            base.outputs = new byte[outputs];
             base.bridge._self = this;
             base.bridge.links = new LogicLink[outputs];
         }
@@ -32,7 +32,8 @@ namespace Logic
         #region Overrides Of Component
         private void Awake()
         {
-            base.Setup(this, "CUSTOM");
+            //TODO: make a save system for custom gates data
+            //base.Setup("CUSTOM",this,);
         }
 
         public override void Start()

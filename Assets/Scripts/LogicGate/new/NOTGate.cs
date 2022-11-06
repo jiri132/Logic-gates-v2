@@ -10,16 +10,19 @@ namespace Logic
 
         #endregion
 
+        
+
         public override void Propegate()
         {
-           
+            
         }
 
 
         #region Overrides Of Component
         private void Awake()
         {
-            base.BridgeSetup(this, "NOT");
+            base.Setup("AND", this, new byte[1], new byte[1]);
+            
         }
 
         public override void Start()
