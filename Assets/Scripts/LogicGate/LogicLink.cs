@@ -34,8 +34,8 @@ namespace Logic
                 LogicComponent relation_gate = relation._gate;
 
                 //get the whole data set and change only the needed index
-                int[] data = relation._gate.inputs;
-                data[index] = powered == true ? 1 : 0;
+                byte[] data = relation._gate.inputs;
+                data[index] = (byte)(powered == true ? 1 : 0);
 
                 //set all the data back as new and fire off the activation function
                 relation_gate.inputs = data; ;
@@ -45,7 +45,6 @@ namespace Logic
         public void CreateRelation(LogicComponent other, int index)
         {
             relations.Add(new Relation(other, index));
-
 
             //acts as an Observable when connecting
             if (_self.outputs[this._outputIndex] == 1) 

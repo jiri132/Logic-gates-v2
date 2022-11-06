@@ -20,7 +20,7 @@ namespace Logic
 
         private void Awake()
         {
-            //base.Setup(this, "AND");
+            base.Setup("AND",this,new byte[2],new byte[1]);
         }
 
         public override void Start()
