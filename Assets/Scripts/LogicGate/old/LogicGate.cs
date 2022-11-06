@@ -74,12 +74,12 @@ namespace Logic
             switch (_type)
             {
                 case TYPES.NOT:
-                    if (inputs[0] == 0) { outputs = new int[1] { 1 }; }
-                    else { outputs = new int[1] { 0 }; }
+                    if (inputs[0] == 0 && outputs[0] != 1) { outputs = new int[1] { 1 }; }
+                    else if (outputs[0] != 0) { outputs = new int[1] { 0 }; }
                     break;
                 case TYPES.AND:
-                    if (inputs[0] == 1 && inputs[1] == 1) { outputs = new int[1] { 1 }; } 
-                    else { outputs = new int[1] { 0 }; }
+                    if ((inputs[0] == 1 && inputs[1] == 1) && outputs[0] != 1) { outputs = new int[1] { 1 }; } 
+                    else if (outputs[0] != 0) { outputs = new int[1] { 0 }; }
                     break;
                 case TYPES.CUSTOM:
                     
