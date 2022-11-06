@@ -5,28 +5,24 @@ using Logic;
 
 public class ANDGate : LogicComponent
 {
-    public override int[] GetInputData()
-    {
-        throw new System.NotImplementedException();
-    }
+    #region Variables
 
-    public override int[] GetOutputData()
-    {
-        throw new System.NotImplementedException();
-    }
+    [Header("Linking Bridge")]
+    [SerializeField]
+    private LogicLink link;
 
-    public override void SetInputData(int[] data)
-    {
-        throw new System.NotImplementedException();
-    }
+    #endregion
 
-    public override void SetInputData(int data, int index)
-    {
-        throw new System.NotImplementedException();
-    }
 
+    #region Overrides Of Component
     public override void Start()
     {
-        throw new System.NotImplementedException();
+        link._self = this;
+
     }
+    #endregion
+
+
+
+
 }

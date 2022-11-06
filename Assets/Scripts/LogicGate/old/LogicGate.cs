@@ -102,7 +102,7 @@ namespace Logic
 
         #region Overrides of Component
 
-        public override TYPES GetLogicType()
+       /* public override TYPES GetLogicType()
         {
             return _type;
         }
@@ -121,6 +121,7 @@ namespace Logic
             inputs[index] = data;
             //Invoke("Activation", 1f);
         }
+       */
 
 
         #endregion
