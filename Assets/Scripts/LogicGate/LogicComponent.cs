@@ -90,12 +90,13 @@ namespace Logic
         {
             this.bridge._self = gate;
 
-            if (bridge.links.Length == 0) { bridge.links = new LogicLink[outputs.Length]; }
+            if (bridge.links.Length == 0 || bridge.links.Length > outputs.Length) { bridge.links = new LogicLink[outputs.Length]; }
 
-            for (int i = 0; i < bridge.links.Length; i++)
+            foreach (LogicLink link in bridge.links)
             {
-                bridge.links[i]._self = gate;
+                link.AddSelf(gate);
             }
+
         }
 
         public virtual void NameSetup(string name)

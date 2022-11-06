@@ -25,6 +25,11 @@ namespace Logic
             this._outputIndex = _outputIndex;
         }
 
+        public void AddSelf(LogicComponent _self)
+        {
+            this._self = _self;
+        }
+
         //based on the powered notification switch on or off the input
         public void Trigger(bool powered)
         {

@@ -21,13 +21,12 @@ namespace Logic
         #region Overrides Of Component
         private void Awake()
         {
-            base.Setup("AND", this, new byte[1], new byte[1]);
-            
+            base.Setup("NOT", this, new byte[1], new byte[1]);
         }
 
         public override void Start()
         {
-            
+
         }
 
         #endregion
