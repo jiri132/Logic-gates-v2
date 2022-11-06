@@ -32,7 +32,8 @@ namespace Logic
             {
                 _outputs = value;
                 // ADD function calls here
-                Invoke("LinkDataTransfer", 0.2f);
+                //LinkDataTransfer();
+                Invoke("LinkDataTransfer", 0.1f);
             }
         }
         [SerializeField]private int[] _inputs;
@@ -43,8 +44,8 @@ namespace Logic
             {
                 _inputs = value;
                 // ADD function calls here
-                Activation();
-                Invoke("Activation", 0.2f);
+                //Activation();
+                Invoke("Activation", 0.1f);
             }
         }
         #endregion
@@ -61,7 +62,7 @@ namespace Logic
                 link.Add(new LogicLink(this, i));
             }
             link[0].CreateRelation(this,0);
-            Activation();
+            Invoke("Activation", 1f);
         }
 
         /// <summary>
@@ -69,21 +70,16 @@ namespace Logic
         /// </summary>
         void Activation()
         {
-            int[] data = new int[1] { 1 };
             Debug.Log("Activation");
             switch (_type)
             {
                 case TYPES.NOT:
-                    if (inputs[0] == 0) { outputs = data; }
-                    else { outputs[0] = data[0] = 0; }
+                    if (inputs[0] == 0) { outputs = new int[1] { 1 }; }
+                    else { outputs = new int[1] { 0 }; }
                     break;
                 case TYPES.AND:
-                    if (inputs[0] == 1 && inputs[1] == 1) { outputs = data; } 
-                    else { outputs[0] = data[0] = 0; }
-                    break;
-                case TYPES.OR:
-                    if (inputs[0] == 1 || inputs[1] == 1) { outputs = data; } 
-                    else { outputs[0] = data[0] = 0; }
+                    if (inputs[0] == 1 && inputs[1] == 1) { outputs = new int[1] { 1 }; } 
+                    else { outputs = new int[1] { 0 }; }
                     break;
                 case TYPES.CUSTOM:
                     
@@ -118,12 +114,12 @@ namespace Logic
         public override void SetInputData(int[] data)
         {
             inputs = data;
-            Activation();
+            //Invoke("Activation", 1f);
         }
         public override void SetInputData(int data, int index)
         {
             inputs[index] = data;
-            Activation();
+            //Invoke("Activation", 1f);
         }
 
 
