@@ -161,7 +161,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input_value: 0
-  gate1: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -228,6 +227,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1096621050}
+  - component: {fileID: 1096621052}
+  - component: {fileID: 1096621051}
   - component: {fileID: 1096621049}
   m_Layer: 0
   m_Name: GameObject
@@ -243,15 +244,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096621048}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74645d4845f7ce94f99cc225b1412dc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d6f10b2b5718d847b7569d9dcff7147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  link: []
-  _type: 0
-  _outputs: 
-  _inputs: 
+  name: 
+  bridge:
+    _self: {fileID: 0}
+    links: []
+  _inputs: 00000000
+  _outputs: 00000000
 --- !u!4 &1096621050
 Transform:
   m_ObjectHideFlags: 0
@@ -266,3 +269,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1096621051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096621048}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a713a302d89c48408e38fee435e1c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  bridge:
+    _self: {fileID: 0}
+    links: []
+  _inputs: 00000000
+  _outputs: 00000000
+--- !u!114 &1096621052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096621048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d772d2eb4fb25634ca67e27039752318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  bridge:
+    _self: {fileID: 0}
+    links:
+    - _self: {fileID: 0}
+      _outputIndex: 0
+      relations:
+      - _gate: {fileID: 0}
+        _inputIndex: 0
+    - _self: {fileID: 0}
+      _outputIndex: 0
+      relations:
+      - _gate: {fileID: 0}
+        _inputIndex: 0
+    - _self: {fileID: 0}
+      _outputIndex: 0
+      relations:
+      - _gate: {fileID: 0}
+        _inputIndex: 0
+  _inputs: 
+  _outputs: 

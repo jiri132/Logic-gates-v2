@@ -8,22 +8,21 @@ namespace Logic
     [System.Serializable]
     public class LogicLink
     {
+        
+        
         [Header("Link Modules Owner")]
-        public LogicComponent _self;
+        [HideInInspector]public LogicComponent _self;
         public int _outputIndex;
 
         //TODO: relations act when the _self is active but relation is not set before activation
         [Header("Links to Others")]
-        public List<Relation> relations; 
-        
-        public LogicLink(LogicGate _self,int _outputIndex)
+        public List<Relation> relations = new List<Relation>();
+
+        public LogicLink(LogicComponent _self,int _outputIndex)
         {
             //create the object
             this._self = _self;
             this._outputIndex = _outputIndex;
-
-            //create the list of relations
-            relations = new List<Relation>();
         }
 
         //based on the powered notification switch on or off the input
@@ -49,7 +48,7 @@ namespace Logic
 
 
             //acts as an Observable when connecting
-            if (this._self.outputs[this._outputIndex] == 1) 
+            if (_self.outputs[this._outputIndex] == 1) 
             {
                 other.inputs[index] = 1;
             }

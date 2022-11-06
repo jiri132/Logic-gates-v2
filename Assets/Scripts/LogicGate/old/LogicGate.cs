@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Extentions.Observables;
@@ -59,7 +59,7 @@ namespace Logic
             //make al lthe link modules connected to each output node
             for (int i = 0; i < _outputs.Length; i++)
             {
-                link.Add(new LogicLink(this, i));
+                //link.Add(new LogicLink(i));
             }
             link[0].CreateRelation(this,0);
             Invoke("Activation", 1f);
@@ -102,7 +102,7 @@ namespace Logic
 
         #region Overrides of Component
 
-       /* public override TYPES GetLogicType()
+       *//* public override TYPES GetLogicType()
         {
             return _type;
         }
@@ -121,9 +121,10 @@ namespace Logic
             inputs[index] = data;
             //Invoke("Activation", 1f);
         }
-       */
+       *//*
 
 
         #endregion
     }
 }
+*/

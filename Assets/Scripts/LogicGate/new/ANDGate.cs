@@ -1,28 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Logic;
 
-public class ANDGate : LogicComponent
+namespace Logic
 {
-    #region Variables
-
-    [Header("Linking Bridge")]
-    [SerializeField]
-    private LogicLink link;
-
-    #endregion
-
-
-    #region Overrides Of Component
-    public override void Start()
+    public class ANDGate : LogicComponent
     {
-        link._self = this;
+        #region Variables
 
+
+
+        #endregion
+        public override void Propegate()
+        {
+
+        }
+
+        #region Overrides Of Component
+
+        private void Awake()
+        {
+            base.Setup(this, "AND");
+        }
+
+        public override void Start()
+        {
+           
+
+        }
+        #endregion
     }
-    #endregion
-
-
-
-
 }
+

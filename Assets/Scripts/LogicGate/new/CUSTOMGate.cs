@@ -1,54 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Logic;
 
-public class CUSTOMGate : LogicComponent
+namespace Logic
 {
-    #region Constructor
-
-    public CUSTOMGate(int inputs, int outputs, string name)
+    public class CUSTOMGate : LogicComponent
     {
-        base.name = name;
-        base.inputs = new int[inputs];
-        base.outputs = new int[outputs];
+        #region Constructor
+
+        public CUSTOMGate(int inputs, int outputs, string name)
+        {
+            base.name = name;
+            base.inputs = new int[inputs];
+            base.outputs = new int[outputs];
+            base.bridge._self = this;
+            base.bridge.links = new LogicLink[outputs];
+        }
+
+        #endregion
+
+        #region Variables
+
+
+        public override void Propegate()
+        {
+
+        }
+
+        #endregion
+
+        #region Overrides Of Component
+        private void Awake()
+        {
+            base.Setup(this, "CUSTOM");
+        }
+
+        public override void Start()
+        {
+            /*for (int i = 0; i < link.Length; i++)
+            {
+                link[i]._self = this;
+                link[i]._outputIndex = i;
+            }*/
+        }
+        #endregion
     }
-
-    #endregion
-
-    #region Variables
-
-    [Header("Linking Bridge")]
-    [SerializeField]
-    private LogicLink[] link = new LogicLink[0];
-
-   
-    #endregion
-
-    public override void Start()
-    {
-        
-    }
-
-    #region Overrides Of Component
-    /*public override int[] GetInputData()
-    {
-        return inputs;
-    }
-
-    public override int[] GetOutputData()
-    {
-        return outputs;
-    }
-
-    public override void SetInputData(int[] data)
-    {
-        inputs = data;
-    }
-
-    public override void SetInputData(int data, int index)
-    {
-        inputs[index] = data;
-    }*/
-    #endregion
 }
+

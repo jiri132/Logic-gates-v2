@@ -1,25 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Logic;
 
-public class NOTGate : LogicComponent
+namespace Logic
 {
-    #region Variables
-
-    [Header("Linking Bridge")]
-    [SerializeField]
-    private LogicLink link;
-
-    #endregion
-
-
-
-    #region Overrides Of Component
-    public override void Start()
+    public class NOTGate : LogicComponent
     {
-        link._self = this;
-    }
+        #region Variables
 
-    #endregion
+        #endregion
+
+        public override void Propegate()
+        {
+           
+        }
+
+
+        #region Overrides Of Component
+        private void Awake()
+        {
+            base.BridgeSetup(this, "NOT");
+        }
+
+        public override void Start()
+        {
+            
+        }
+
+        #endregion
+    }
 }
+
