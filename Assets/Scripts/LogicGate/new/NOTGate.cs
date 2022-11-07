@@ -14,7 +14,9 @@ namespace Logic
 
         public override void Propegate()
         {
-            
+            Debug.Log($"Propegating{base.name}");
+            if (base.inputs[0] == 1) { base.outputs = new byte[1] { 0 }; }
+            else { base.outputs = new byte[1] { 1 }; }
         }
 
 
@@ -22,6 +24,7 @@ namespace Logic
         private void Awake()
         {
             base.Setup("NOT", this, new byte[1], new byte[1]);
+            bridge.links[0].CreateRelation(this, 0);
         }
 
         public override void Start()

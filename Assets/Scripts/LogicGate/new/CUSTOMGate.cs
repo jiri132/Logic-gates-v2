@@ -24,7 +24,7 @@ namespace Logic
 
         public override void Propegate()
         {
-
+            
         }
 
         #endregion

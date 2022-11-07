@@ -13,7 +13,8 @@ namespace Logic
         #endregion
         public override void Propegate()
         {
-
+            if (base.inputs[0] == 1 && base.inputs[1] == 1) { base.outputs = new byte[1] { 1 }; }
+            else { base.outputs = new byte[1] { 0 }; }
         }
 
         #region Overrides Of Component

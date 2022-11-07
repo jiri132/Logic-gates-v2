@@ -8,10 +8,9 @@ namespace Logic
     [System.Serializable]
     public class LogicLink
     {
-        
-        
         [Header("Link Modules Owner")]
-        [HideInInspector]public LogicComponent _self;
+        [HideInInspector]
+        public LogicComponent _self;
         public int _outputIndex;
 
         //TODO: relations act when the _self is active but relation is not set before activation
@@ -39,11 +38,11 @@ namespace Logic
                 LogicComponent relation_gate = relation._gate;
 
                 //get the whole data set and change only the needed index
-                byte[] data = relation._gate.inputs;
+                byte[] data = relation_gate.inputs;
                 data[index] = (byte)(powered == true ? 1 : 0);
 
                 //set all the data back as new and fire off the activation function
-                relation_gate.inputs = data; ;
+                relation_gate.inputs = data;
             }
         }
 

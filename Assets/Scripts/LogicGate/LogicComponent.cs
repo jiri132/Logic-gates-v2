@@ -25,10 +25,13 @@ namespace Logic
             get { return _inputs; }
             set
             {
+                Debug.Log("Hello??");
                 //guard clause to stop it if its the  same value
                 if (value == _inputs) { return; }
 
                 _inputs = value;
+                Debug.Log("Hello");
+                Propegate();
             }
         }
         [SerializeField]
@@ -41,7 +44,21 @@ namespace Logic
                 //guard clause to stop it if its the  same value
                 if (value == _outputs) { return; }
 
+                Debug.Log("hi");
+
+                List<byte> indexesChanged = new List<byte>();
+                
+                for (byte i = 0; i < _outputs.Length; i++)
+                {
+                    if (_outputs[i] != value[i]) { indexesChanged.Add(i); }
+                }
+                
                 _outputs = value;
+
+                for (byte i = 0; i < indexesChanged.Count; i++)
+                {
+                    bridge.links[i].Trigger(_outputs[i] == 1 ? true : false);
+                }
             }
         }
 
@@ -60,14 +77,16 @@ namespace Logic
         /// just the basic setup to be completed when waking up the script
         /// </summary>
         /// <param name="name">logic gate name</param>
-        /// <param name="gate">it self</param>
+        /// <param name="self">it self</param>
         /// <param name="inputs">the total input nodes</param>
         /// <param name="outputs">the total output nodes</param>
-        public virtual void Setup(string name, LogicComponent gate, byte[] inputs, byte[] outputs)
+        public virtual void Setup(string name, LogicComponent self, byte[] inputs, byte[] outputs)
         {
             NameSetup(name);
             IOSetup(inputs,outputs);
-            BridgeSetup(gate);
+            BridgeSetup(self);
+
+            Propegate();
         }
 
         /// <summary>
@@ -84,19 +103,18 @@ namespace Logic
         /// <summary>
         /// This is the base setup for having the brigde open and set to go
         /// </summary>
-        /// <param name="gate">Him self</param>
+        /// <param name="self">Him self</param>
         /// <param name="name">The name of the gate</param>
-        public virtual void BridgeSetup(LogicComponent gate)
+        public virtual void BridgeSetup(LogicComponent self)
         {
-            this.bridge._self = gate;
+            this.bridge._self = self;
 
             if (bridge.links.Length == 0 || bridge.links.Length > outputs.Length) { bridge.links = new LogicLink[outputs.Length]; }
 
-            foreach (LogicLink link in bridge.links)
+            for (int i = 0; i < bridge.links.Length; i++)
             {
-                link.AddSelf(gate);
+                bridge.links[i] = new LogicLink(self,i);
             }
-
         }
 
         public virtual void NameSetup(string name)
