@@ -24,14 +24,12 @@ namespace Logic
         {
             get { return _inputs; }
             set
-            {
-                Debug.Log("Hello??");
+            { 
                 //guard clause to stop it if its the  same value
                 if (value == _inputs) { return; }
 
                 _inputs = value;
-                Debug.Log("Hello");
-                Propegate();
+                OutputPropegation();
             }
         }
         [SerializeField]
@@ -44,8 +42,6 @@ namespace Logic
                 //guard clause to stop it if its the  same value
                 if (value == _outputs) { return; }
 
-                Debug.Log("hi");
-
                 List<byte> indexesChanged = new List<byte>();
                 
                 for (byte i = 0; i < _outputs.Length; i++)
@@ -57,7 +53,7 @@ namespace Logic
 
                 for (byte i = 0; i < indexesChanged.Count; i++)
                 {
-                    bridge.links[i].Trigger(_outputs[i] == 1 ? true : false);
+                    bridge.links[i].Trigger(InputPropegation());
                 }
             }
         }
@@ -67,8 +63,16 @@ namespace Logic
         #region Abstracts
 
         public abstract void Start();
-        public abstract void Propegate();
 
+        /// <summary>
+        /// used to know what the input nodes are going to be
+        /// </summary>
+        public abstract bool InputPropegation();
+
+        /// <summary>
+        /// used to know what the output nodes are going to be
+        /// </summary>
+        public abstract void OutputPropegation();
         #endregion
 
         #region Virtuals
@@ -86,7 +90,7 @@ namespace Logic
             IOSetup(inputs,outputs);
             BridgeSetup(self);
 
-            Propegate();
+            OutputPropegation();
         }
 
         /// <summary>

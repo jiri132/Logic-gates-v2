@@ -22,19 +22,8 @@ namespace Logic
         #region Variables
 
 
-        public override void Propegate()
-        {
-            
-        }
 
         #endregion
-
-        #region Overrides Of Component
-        private void Awake()
-        {
-            //TODO: make a save system for custom gates data
-            //base.Setup("CUSTOM",this,);
-        }
 
         public override void Start()
         {
@@ -44,6 +33,25 @@ namespace Logic
                 link[i]._outputIndex = i;
             }*/
         }
+
+        #region Overrides Of Component
+
+        private void Awake()
+        {
+            //TODO: make a save system for custom gates data
+            //base.Setup("CUSTOM",this,);
+        }
+
+        public override bool InputPropegation()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void OutputPropegation()
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 }

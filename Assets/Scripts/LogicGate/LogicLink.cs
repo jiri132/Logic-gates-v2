@@ -43,6 +43,7 @@ namespace Logic
 
                 //set all the data back as new and fire off the activation function
                 relation_gate.inputs = data;
+                relation_gate.OutputPropegation();
             }
         }
 
@@ -54,6 +55,7 @@ namespace Logic
             if (_self.outputs[this._outputIndex] == 1) 
             {
                 other.inputs[index] = 1;
+                other.OutputPropegation();
             }
         }
     }
