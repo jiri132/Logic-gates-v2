@@ -29,7 +29,7 @@ namespace Logic
                 if (value == _inputs) { return; }
 
                 _inputs = value;
-                OutputPropegation();
+                Invoke("OutputPropegation", 1f);
             }
         }
         [SerializeField]
@@ -76,7 +76,7 @@ namespace Logic
         #endregion
 
         #region Virtuals
-
+        #region Setups
         /// <summary>
         /// just the basic setup to be completed when waking up the script
         /// </summary>
@@ -125,8 +125,16 @@ namespace Logic
         {
             this.name = name;
         }
+        #endregion
+        #region Reusable Functions
 
+        public virtual void SetVariable(byte[] variable, int variableLenght, byte[] data)
+        {
+            variable = new byte[variableLenght];
+            variable = data;
+        }
 
+        #endregion
 
         #endregion
 

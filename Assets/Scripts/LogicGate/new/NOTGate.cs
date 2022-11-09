@@ -25,12 +25,14 @@ namespace Logic
 
         public override bool InputPropegation()
         {
+            Debug.Log($"Input Propegating{base.name}");
+
             return false;
         }
 
         public override void OutputPropegation()
         {
-            Debug.Log($"Propegating{base.name}");
+            Debug.Log($"Output Propegating{base.name}");
             if (base.inputs[0] == 1) { base.outputs = new byte[1] { 0 }; }
             else { base.outputs = new byte[1] { 1 }; }
         }

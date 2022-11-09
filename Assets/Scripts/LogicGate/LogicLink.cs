@@ -38,12 +38,12 @@ namespace Logic
                 LogicComponent relation_gate = relation._gate;
 
                 //get the whole data set and change only the needed index
+                byte[] org = relation_gate.inputs;
                 byte[] data = relation_gate.inputs;
                 data[index] = (byte)(powered == true ? 1 : 0);
 
                 //set all the data back as new and fire off the activation function
-                relation_gate.inputs = data;
-                relation_gate.OutputPropegation();
+                relation_gate.SetVariable(relation_gate.inputs,org.Length,data);
             }
         }
 
@@ -54,8 +54,11 @@ namespace Logic
             //acts as an Observable when connecting
             if (_self.outputs[this._outputIndex] == 1) 
             {
-                other.inputs[index] = 1;
-                other.OutputPropegation();
+                int org_length = other.inputs.Length;
+                byte[] data = other.inputs;
+                data[index] = 1;
+
+                other.SetVariable(other.inputs, org_length, data);
             }
         }
     }
