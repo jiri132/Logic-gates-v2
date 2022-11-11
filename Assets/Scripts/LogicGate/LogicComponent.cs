@@ -23,13 +23,14 @@ namespace Logic
         public byte[] inputs
         {
             get { return _inputs; }
-            set
+            protected set
             { 
                 //guard clause to stop it if its the  same value
-                if (value == _inputs) { return; }
+                //if (value == _inputs) { Debug.Log("same value"); return; }
 
                 _inputs = value;
-                Invoke("OutputPropegation", 1f);
+
+                Invoke("Propegation", 1f);
             }
         }
         [SerializeField]
@@ -37,42 +38,33 @@ namespace Logic
         public byte[] outputs
         {
             get { return _outputs; }
-            set
+            protected set
             {
                 //guard clause to stop it if its the  same value
-                if (value == _outputs) { return; }
-
-                List<byte> indexesChanged = new List<byte>();
-                
-                for (byte i = 0; i < _outputs.Length; i++)
-                {
-                    if (_outputs[i] != value[i]) { indexesChanged.Add(i); }
-                }
+                //if (value == _outputs) { Debug.Log("same value"); return; }
                 
                 _outputs = value;
 
-                for (byte i = 0; i < indexesChanged.Count; i++)
-                {
-                    bridge.links[i].Trigger(InputPropegation());
-                }
+                Invoke("TransferData", 1f);
             }
         }
 
         #endregion
 
+        private void TransferData()
+        {
+            for (int i = 0; i < outputs.Length; i++)
+            {
+                //if an output is active send a notification to the relation else also sent notification
+                if (outputs[i] == 1) { bridge.links[i].Trigger(true); }
+                else { bridge.links[i].Trigger(false); }
+            }
+        }
+
         #region Abstracts
 
-        public abstract void Start();
-
-        /// <summary>
-        /// used to know what the input nodes are going to be
-        /// </summary>
-        public abstract bool InputPropegation();
-
-        /// <summary>
-        /// used to know what the output nodes are going to be
-        /// </summary>
-        public abstract void OutputPropegation();
+        public abstract void Propegation();
+       
         #endregion
 
         #region Virtuals
@@ -90,7 +82,7 @@ namespace Logic
             IOSetup(inputs,outputs);
             BridgeSetup(self);
 
-            OutputPropegation();
+            Invoke("Propegation", 1f);
         }
 
         /// <summary>
@@ -128,10 +120,9 @@ namespace Logic
         #endregion
         #region Reusable Functions
 
-        public virtual void SetVariable(byte[] variable, int variableLenght, byte[] data)
+        public virtual void SetInput(byte[] data)
         {
-            variable = new byte[variableLenght];
-            variable = data;
+            this.inputs = data;
         }
 
         #endregion

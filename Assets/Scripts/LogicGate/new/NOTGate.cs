@@ -10,7 +10,7 @@ namespace Logic
 
         #endregion
 
-        public override void Start()
+        public void Start()
         {
 
         }
@@ -20,23 +20,16 @@ namespace Logic
         private void Awake()
         {
             base.Setup("NOT", this, new byte[1], new byte[1]);
-            bridge.links[0].CreateRelation(this, 0);
+            //bridge.links[0].CreateRelation(this, 0);
         }
 
-        public override bool InputPropegation()
+       
+        public override void Propegation()
         {
-            Debug.Log($"Input Propegating{base.name}");
-
-            return false;
+            if (inputs[0] == 0 && outputs[0] != 1) { outputs = new byte[1] { 1 }; }
+            else if (inputs[0] != 0) { outputs = new byte[1] { 0 }; }
         }
 
-        public override void OutputPropegation()
-        {
-            Debug.Log($"Output Propegating{base.name}");
-            if (base.inputs[0] == 1) { base.outputs = new byte[1] { 0 }; }
-            else { base.outputs = new byte[1] { 1 }; }
-        }
-        
         #endregion
     }
 }

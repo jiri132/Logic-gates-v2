@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Extentions.List;
 
 namespace Logic
 {
@@ -38,12 +37,11 @@ namespace Logic
                 LogicComponent relation_gate = relation._gate;
 
                 //get the whole data set and change only the needed index
-                byte[] org = relation_gate.inputs;
-                byte[] data = relation_gate.inputs;
-                data[index] = (byte)(powered == true ? 1 : 0);
-
+                byte[] data = relation._gate.inputs;
+                data[index] = powered == true ? (byte)1 : (byte)0;
+                Debug.Log(data[index]);
                 //set all the data back as new and fire off the activation function
-                relation_gate.SetVariable(relation_gate.inputs,org.Length,data);
+                relation_gate.SetInput(data);
             }
         }
 
@@ -52,13 +50,9 @@ namespace Logic
             relations.Add(new Relation(other, index));
 
             //acts as an Observable when connecting
-            if (_self.outputs[this._outputIndex] == 1) 
+            if (_self.outputs[this._outputIndex] == 1)
             {
-                int org_length = other.inputs.Length;
-                byte[] data = other.inputs;
-                data[index] = 1;
-
-                other.SetVariable(other.inputs, org_length, data);
+                other.inputs[index] = 1;
             }
         }
     }

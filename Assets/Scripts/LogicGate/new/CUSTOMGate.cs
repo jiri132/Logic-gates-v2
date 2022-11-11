@@ -11,7 +11,6 @@ namespace Logic
         public CUSTOMGate(int inputs, int outputs, string name)
         {
             base.name = name;
-            base.inputs = new byte[inputs];
             base.outputs = new byte[outputs];
             base.bridge._self = this;
             base.bridge.links = new LogicLink[outputs];
@@ -25,7 +24,7 @@ namespace Logic
 
         #endregion
 
-        public override void Start()
+        public void Start()
         {
             /*for (int i = 0; i < link.Length; i++)
             {
@@ -42,12 +41,7 @@ namespace Logic
             //base.Setup("CUSTOM",this,);
         }
 
-        public override bool InputPropegation()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OutputPropegation()
+        public override void Propegation()
         {
             throw new System.NotImplementedException();
         }

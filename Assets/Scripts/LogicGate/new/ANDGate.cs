@@ -12,7 +12,7 @@ namespace Logic
 
         #endregion
 
-        public override void Start()
+        public void Start()
         {
 
         }
@@ -24,15 +24,10 @@ namespace Logic
             base.Setup("AND",this,new byte[2],new byte[1]);
         }
 
-        public override bool InputPropegation()
+        public override void Propegation()
         {
-            return true;
-        }
-
-        public override void OutputPropegation()
-        {
-            if (base.inputs[0] == 1 && base.inputs[1] == 1) { base.outputs = new byte[1] { 1 }; }
-            else { base.outputs = new byte[1] { 0 }; }
+            if ((base.inputs[0] == 1 && base.inputs[1] == 1) && outputs[0] != 1) { base.outputs = new byte[1] { 1 }; }
+            else if (outputs[0] != 0) { base.outputs = new byte[1] { 0 }; }
         }
 
         #endregion

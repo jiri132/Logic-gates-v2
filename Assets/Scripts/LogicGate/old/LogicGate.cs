@@ -1,4 +1,4 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Extentions.Observables;
@@ -23,21 +23,9 @@ namespace Logic
         [SerializeField]private TYPES _type;
 
         [Header("Internal Data")]
-        [SerializeField]private int[] _outputs = new int[1] { 0 };
 
-        public int[] outputs
-        {
-            get { return _outputs; }
-            protected set
-            {
-                _outputs = value;
-                // ADD function calls here
-                //LinkDataTransfer();
-                Invoke("LinkDataTransfer", 0.1f);
-            }
-        }
-        [SerializeField]private int[] _inputs;
-        public int[] inputs
+        [SerializeField] private int[] _inputs;
+        public new int[] inputs
         {
             get { return _inputs; }
             protected set
@@ -45,12 +33,27 @@ namespace Logic
                 _inputs = value;
                 // ADD function calls here
                 //Activation();
-                Invoke("Activation", 0.1f);
+                Invoke("_Propegation", 0.1f);
             }
         }
+
+        [SerializeField]private int[] _outputs;
+
+        public new int[] outputs
+        {
+            get { return _outputs; }
+            protected set
+            {
+                _outputs = value;
+                // ADD function calls here
+                //LinkDataTransfer();
+                Invoke("TransferData", 0.1f);
+            }
+        }
+        
         #endregion
 
-        public override void Start()
+        public void Start()
         {
             _outputs = new int[1] { 0 };
             //if the input gets selected 
@@ -62,13 +65,13 @@ namespace Logic
                 //link.Add(new LogicLink(i));
             }
             link[0].CreateRelation(this,0);
-            Invoke("Activation", 1f);
+            Invoke("_Propegation", 1f);
         }
 
         /// <summary>
         /// Checks if it can activate based on the logic gate it is
         /// </summary>
-        void Activation()
+        void _Propegation()
         {
             Debug.Log("Activation");
             switch (_type)
@@ -88,7 +91,7 @@ namespace Logic
                     break;
             }
         }
-        void LinkDataTransfer()
+        void TransferData()
         {
             Debug.Log("link data");
             //loop through all the outputs 
@@ -102,29 +105,34 @@ namespace Logic
 
         #region Overrides of Component
 
-       *//* public override TYPES GetLogicType()
+       //* public override TYPES GetLogicType()
+        
+          
+
+        public override void Propegation()
         {
-            return _type;
+            throw new System.NotImplementedException();
         }
-        public override int[] GetInputData() => inputs;
+
+        
+        public int[] GetInputData() => inputs;
        
 
-        public override int[] GetOutputData() => outputs;
+        public int[] GetOutputData() => outputs;
         
-        public override void SetInputData(int[] data)
+        public void SetInputData(int[] data)
         {
             inputs = data;
             //Invoke("Activation", 1f);
         }
-        public override void SetInputData(int data, int index)
+        public void SetInputData(int data, int index)
         {
             inputs[index] = data;
             //Invoke("Activation", 1f);
         }
-       *//*
+      
 
 
         #endregion
     }
 }
-*/
