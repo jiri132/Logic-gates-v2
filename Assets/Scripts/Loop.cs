@@ -19,6 +19,8 @@ public class Loop : MonoBehaviour
         x.bridge.links[0].CreateRelation(y, 1);
         //output 1 to input 1
         y.bridge.links[0].CreateRelation(x, 0);
+
+        //x.bridge.links[0].CreateRelation(x, 0);
     }
 
     // Update is called once per frame

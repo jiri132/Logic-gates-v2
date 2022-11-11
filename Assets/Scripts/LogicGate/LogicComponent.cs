@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Logic
 {
@@ -30,7 +31,7 @@ namespace Logic
 
                 _inputs = value;
 
-                Invoke("Propegation", 1f);
+                Invoke("Propegation", 0.1f);
             }
         }
         [SerializeField]
@@ -45,9 +46,16 @@ namespace Logic
                 
                 _outputs = value;
 
-                Invoke("TransferData", 1f);
+                Invoke("TransferData", 0.1f);
             }
         }
+
+        #endregion
+        #region UI variables
+
+        [Header("IO UI")]
+        public SpriteRenderer[] inputRenders;
+        public SpriteRenderer[] outputRenders;
 
         #endregion
 
@@ -59,15 +67,43 @@ namespace Logic
                 if (outputs[i] == 1) { bridge.links[i].Trigger(true); }
                 else { bridge.links[i].Trigger(false); }
             }
+            UpdateUI();
+
+
+        }
+
+        public void UpdateUI()
+        {
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                if(inputs[i] == 1)
+                {
+                    inputRenders[i].color = LogicSettings.Instance.onColor;
+                    continue;
+                }
+                inputRenders[i].color = LogicSettings.Instance.offColor;
+            }
+            for (int i = 0; i < outputs.Length; i++)
+            {
+                if (outputs[i] == 1)
+                {
+                    outputRenders[i].color = LogicSettings.Instance.onColor;
+                    continue;
+                }
+                outputRenders[i].color = LogicSettings.Instance.offColor;
+            }
         }
 
         #region Abstracts
 
-        public abstract void Propegation();
+        public virtual void Propegation() { UpdateUI(); }
        
         #endregion
 
         #region Virtuals
+
+
+
         #region Setups
         /// <summary>
         /// just the basic setup to be completed when waking up the script
@@ -122,7 +158,7 @@ namespace Logic
 
         public virtual void SetInput(byte[] data)
         {
-            this.inputs = data;
+            inputs = data;
         }
 
         #endregion

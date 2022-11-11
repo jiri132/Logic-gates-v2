@@ -39,7 +39,7 @@ namespace Logic
                 //get the whole data set and change only the needed index
                 byte[] data = relation._gate.inputs;
                 data[index] = powered == true ? (byte)1 : (byte)0;
-                Debug.Log(data[index]);
+                
                 //set all the data back as new and fire off the activation function
                 relation_gate.SetInput(data);
             }
@@ -50,7 +50,7 @@ namespace Logic
             relations.Add(new Relation(other, index));
 
             //acts as an Observable when connecting
-            if (_self.outputs[this._outputIndex] == 1)
+            if (_self.outputs[_outputIndex] == 1)
             {
                 other.inputs[index] = 1;
             }
