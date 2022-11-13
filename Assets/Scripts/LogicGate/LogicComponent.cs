@@ -25,13 +25,10 @@ namespace Logic
         {
             get { return _inputs; }
             protected set
-            { 
-                //guard clause to stop it if its the  same value
-                //if (value == _inputs) { Debug.Log("same value"); return; }
-
+            {
                 _inputs = value;
 
-                Invoke("Propegation", 0.1f);
+                Invoke("Propegation", LogicSettings.Instance.interval);
             }
         }
         [SerializeField]
@@ -41,12 +38,9 @@ namespace Logic
             get { return _outputs; }
             protected set
             {
-                //guard clause to stop it if its the  same value
-                //if (value == _outputs) { Debug.Log("same value"); return; }
-                
                 _outputs = value;
 
-                Invoke("TransferData", 0.1f);
+                Invoke("TransferData", LogicSettings.Instance.interval);
             }
         }
 

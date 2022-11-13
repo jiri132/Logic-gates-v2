@@ -16,5 +16,7 @@ public class LogicSettings : MonoBehaviour
 
     public Color onColor;
     public Color offColor;
-    
+
+    public float interval = 0.01f;
+
 }
