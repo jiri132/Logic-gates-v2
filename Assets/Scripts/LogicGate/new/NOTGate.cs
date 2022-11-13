@@ -27,7 +27,7 @@ namespace Logic
         public override void Propegation()
         {
             if (inputs[0] == 0 && outputs[0] != 1) { outputs = new byte[1] { 1 }; }
-            else if (inputs[0] != 0) { outputs = new byte[1] { 0 }; }
+            else if (inputs[0] != 0 && inputs[0] != 0) { outputs = new byte[1] { 0 }; }
         }
 
         #endregion
