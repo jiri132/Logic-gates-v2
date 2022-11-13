@@ -14,6 +14,8 @@ public class LogicSettings : MonoBehaviour
         }
     }
 
+    public GameObject wirePrefab;
+
     public Color onColor;
     public Color offColor;
 
