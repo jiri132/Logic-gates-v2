@@ -1,24 +1,26 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Logic;
+using Extention.Singleton;
 
-public class Loop : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
+    
     public LogicComponent x;
     public LogicComponent y;
 
-    
+    public Wire selectedWire;
 
     // Start is called before the first frame update
     void Start()
     {
         //output 1 to input 1 
-        x.bridge.links[0].CreateRelation(y, 0);
+        /*x.bridge.links[0].CreateRelation(y, 0);
         //output 1 to input 2
         x.bridge.links[0].CreateRelation(y, 1);
         //output 1 to input 1
-        y.bridge.links[0].CreateRelation(x, 0);
+        y.bridge.links[0].CreateRelation(x, 0);*/
 
         //x.bridge.links[0].CreateRelation(x, 0);
     }

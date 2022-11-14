@@ -11,9 +11,7 @@ namespace Logic
         public CUSTOMGate(int inputs, int outputs, string name)
         {
             base.name = name;
-            base.outputs = new byte[outputs];
-            base.bridge._self = this;
-            base.bridge.links = new LogicLink[outputs];
+           // base.outputs = new byte[outputs];
         }
 
         #endregion
