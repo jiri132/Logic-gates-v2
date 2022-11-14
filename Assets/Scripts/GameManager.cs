@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Logic;
+using Extentions.singleton
 
 public class GameManager : MonoBehaviour
 {
 
     #region Singleton
     //TODO: Make it with the extention of singleton<T>
+    public static singleton<GameManager> Instance = new singleton<GameManager>;
+    /*
     public static GameManager Instance;
 
     private void Awake()
@@ -21,6 +24,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+    */
     #endregion
     public LogicComponent x;
     public LogicComponent y;
