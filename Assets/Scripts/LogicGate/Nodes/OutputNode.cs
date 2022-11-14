@@ -11,14 +11,17 @@ namespace Logic.Nodes
     {
         [Header("Relations")]
         public LogicLink Links;
-
+            
         public override void OnMouseDown()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject go = Instantiate(LogicSettings.Instance.wirePrefab, this.transform.position, Quaternion.identity, this.transform);
-                Wire wire = go.GetComponent<Wire>();
+                //instantie and get the wire component
+                Wire wire = Instantiate(LogicSettings.Instance.wirePrefab, this.transform.position, Quaternion.identity, this.transform).GetComponent<Wire>();
+
+                //give all the things wire needs and gamemanager
                 wire.OutputNode = this;
+                GameManager.Instance.selectedWire = wire;
                 Wires.Add(wire);
             }
             else if (Input.GetMouseButtonDown(1))
@@ -31,9 +34,10 @@ namespace Logic.Nodes
             }
         }
 
-        private void Start()
+        public override void Start()
         {
             base.Type = NodeType.Output;
+            Links.self = this;
         }
     }
 }

@@ -2,30 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Logic;
-using Extentions.singleton
+using Extention.Singleton;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-
-    #region Singleton
-    //TODO: Make it with the extention of singleton<T>
-    public static singleton<GameManager> Instance = new singleton<GameManager>;
-    /*
-    public static GameManager Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }else
-        {
-            Destroy(this);
-        }
-    }
-    */
-    #endregion
+    
     public LogicComponent x;
     public LogicComponent y;
 

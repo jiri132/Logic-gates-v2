@@ -17,11 +17,16 @@ namespace Logic.Nodes
 
             if (CanConnect(other.OutputNode))
             {
+                //link the nodes together
+                OutputNode otherNode = (OutputNode)other.OutputNode;
+                otherNode.Links.CreateRelation(this);
+
+                //mkae th wie to the other node
                 other.InputNode = this;
             }
         }
 
-        private void Start()
+        public override void Start()
         {
             base.Type = NodeType.Input;
         }

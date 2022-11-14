@@ -29,9 +29,10 @@ namespace Logic.Nodes
         [Header("Node Wires")]
         public List<Wire> Wires;
 
-        private void Start()
+        public virtual void Start()
         {
             nodeUI = this.GetComponent<SpriteRenderer>();
+            Debug.Log("HJI");
         }
 
 

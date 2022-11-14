@@ -6,7 +6,7 @@ using Logic.Nodes;
 
 public class Wire : MonoBehaviour
 {
-    LineRenderer lr;
+    [SerializeField]private LineRenderer lr;
     public Material wireMaterial;
 
     private bool _state;
@@ -44,10 +44,20 @@ public class Wire : MonoBehaviour
         lr.material = wireMaterial;
 
         lr.SetPosition(0, OutputNode.transform.position);
+    }
 
-        while(InputNode == null)
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
         {
-            lr.SetPosition(1, mousePos());
+
+        }
+        
+
+
+        if (InputNode == null)
+        {
+            lr.SetPosition(lr.positionCount, mousePos());
         }
     }
 }

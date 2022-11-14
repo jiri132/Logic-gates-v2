@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Extentions.Observables;
@@ -64,7 +64,7 @@ namespace Logic
             {
                 //link.Add(new LogicLink(i));
             }
-            link[0].CreateRelation(this,0);
+            link[0].CreateRelation();
             Invoke("_Propegation", 1f);
         }
 
@@ -136,3 +136,4 @@ namespace Logic
         #endregion
     }
 }
+*/
