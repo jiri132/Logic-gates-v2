@@ -20,7 +20,8 @@ namespace Logic.Nodes
 
                 _state = value;
                 UpdateUI();
-
+                if (Type == NodeType.Input) { Invoke("_propegation", LogicSettings.Instance.interval); }
+                else if (Type == NodeType.Output) { Invoke("_transferdata", LogicSettings.Instance.interval); }
             }
         }
         [Header("Node UI")]
@@ -29,16 +30,34 @@ namespace Logic.Nodes
         [Header("Node Wires")]
         public List<Wire> Wires;
 
-        public virtual void Start()
+        [Header("Nodes Parent")]
+        private LogicComponent ownGate;
+
+        public void Start()
         {
             nodeUI = this.GetComponent<SpriteRenderer>();
-            Debug.Log("HJI");
+            ownGate = this.GetComponentInParent<LogicComponent>();
         }
 
+        private void _propegation() => ownGate.Propegation();
 
-        public void UpdateUI()
+        public virtual void _transferdata() { }
+
+        public virtual void UpdateUI()
         {
-            if (state == 1) { nodeUI.color = LogicSettings.Instance.onColor; return; }
+            if (state == 1) 
+            {
+                nodeUI.color = LogicSettings.Instance.onColor;
+                foreach (Wire wire in Wires)
+                {
+                    wire.UpdateUI(LogicSettings.Instance.onColor);
+                }
+                return; 
+            }
+            foreach (Wire wire in Wires)
+            {
+                wire.UpdateUI(LogicSettings.Instance.offColor);
+            }
             nodeUI.color = LogicSettings.Instance.offColor;
         }
 

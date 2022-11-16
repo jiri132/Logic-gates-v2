@@ -27,12 +27,14 @@ public class Wire : MonoBehaviour
     public Node InputNode;
     public Node OutputNode;
 
+    private bool isSelectedWire() => GameManager.Instance.selectedWire == this;
+
     private Vector2 mousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void UpdateUI(Color c)
+    public void UpdateUI(Color c)
     {
         lr.SetColors(c, c);
     }
@@ -48,16 +50,31 @@ public class Wire : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && isSelectedWire())
+        {
+            List<Vector3> positions = new List<Vector3>();
+
+            for (int i = 0; i < lr.positionCount; i++)
+            {
+                positions.Add(lr.GetPosition(i));
+            }
+
+            positions.Add(mousePos());
+
+            Debug.Log(positions.Count);
+
+            lr.SetPositions(positions.ToArray());
+            lr.SetVertexCount(positions.Count);
+        }
+        
+        if (Input.GetMouseButtonDown(0) && isSelectedWire())
         {
 
         }
-        
-
 
         if (InputNode == null)
         {
-            lr.SetPosition(lr.positionCount, mousePos());
+            lr.SetPosition(lr.positionCount-1, mousePos());
         }
     }
 }

@@ -42,23 +42,6 @@ namespace Logic
 
         #endregion
 
-        private void TransferData()
-        {
-            for (int i = 0; i < outputs.Length; i++)
-            {
-                //if an output is active send a notification to the relation else also sent notification
-                //if (outputs[i] == 1) { bridge.links[i].Trigger(true); }
-                //else { bridge.links[i].Trigger(false); }
-            }
-            SetNodes();
-            //UpdateUI();
-        }
-
-        protected void SetNodes()
-        {
-            
-        }
-
         #region Abstracts
 
         public virtual void Propegation() { }

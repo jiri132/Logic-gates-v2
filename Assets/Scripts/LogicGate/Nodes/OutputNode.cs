@@ -10,8 +10,8 @@ namespace Logic.Nodes
     public class OutputNode : Node
     {
         [Header("Relations")]
-        public LogicLink Links;
-            
+        public LogicLink Links; 
+
         public override void OnMouseDown()
         {
             if (Input.GetMouseButtonDown(0))
@@ -34,10 +34,21 @@ namespace Logic.Nodes
             }
         }
 
-        public override void Start()
+        public override void _transferdata()
+        {
+            if (state == 1) { Links.Trigger(true); }
+            else { Links.Trigger(false); }
+        }
+
+        private void Awake()
+        {
+            Links.self = this;
+        }
+
+        /*public void Start()
         {
             base.Type = NodeType.Output;
             Links.self = this;
-        }
+        }*/
     }
 }

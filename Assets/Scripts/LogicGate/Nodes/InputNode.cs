@@ -26,9 +26,11 @@ namespace Logic.Nodes
             }
         }
 
-        public override void Start()
+        
+
+        /*public override void Start()
         {
             base.Type = NodeType.Input;
-        }
+        }*/
     }
 }
