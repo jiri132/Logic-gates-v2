@@ -22,7 +22,7 @@ namespace Logic
         private void Awake()
         {
             base.NameSetup("AND");
-
+            Invoke("Propegation", LogicSettings.Instance.interval);
             //base.Setup("AND",this,new byte[2],new byte[1]);
         }
 

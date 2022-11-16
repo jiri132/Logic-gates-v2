@@ -2,18 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogicSettings : MonoBehaviour
+using Extentions.Singleton;
+
+public class LogicSettings : Singleton<LogicSettings>
 {
-    public static LogicSettings Instance;
-
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-    }
-
     public GameObject wirePrefab;
 
     public Color onColor;

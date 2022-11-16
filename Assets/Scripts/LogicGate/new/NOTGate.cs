@@ -20,6 +20,7 @@ namespace Logic
         private void Awake()
         {
             base.NameSetup("AND");
+            Invoke("Propegation", LogicSettings.Instance.interval);
             //base.Setup("NOT", this, new byte[1], new byte[1]);
             //bridge.links[0].CreateRelation(this, 0);
         }
@@ -28,8 +29,7 @@ namespace Logic
         public override void Propegation()
         {
             if (inputs[0].state == 0 && outputs[0].state != 1) { outputs[0].state = 1; }
-            else if (inputs[0].state != 0 && outputs[0].state != 0) { outputs[0].state = 0; }
-            
+            else if (inputs[0].state != 0 && outputs[0].state != 0) { outputs[0].state = 0; }    
         }
 
         #endregion
