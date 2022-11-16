@@ -36,7 +36,7 @@ namespace Logic.Nodes
         }
 
 
-        public void UpdateUI()
+        public virtual void UpdateUI()
         {
             if (state == 1) { nodeUI.color = LogicSettings.Instance.onColor; return; }
             nodeUI.color = LogicSettings.Instance.offColor;

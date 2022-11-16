@@ -50,14 +50,26 @@ public class Wire : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+            List<Vector3> positions = new List<Vector3>();
 
+            for (int i = 0; i < lr.positionCount; i++)
+            {
+                positions.Add(lr.GetPosition(i));
+            }
+
+            positions.Add(mousePos());
+
+            Debug.Log(positions.Count);
+
+            lr.SetPositions(positions.ToArray());
+            lr.SetVertexCount(positions.Count);
         }
         
 
 
         if (InputNode == null)
         {
-            lr.SetPosition(lr.positionCount, mousePos());
+            lr.SetPosition(lr.positionCount-1, mousePos());
         }
     }
 }
