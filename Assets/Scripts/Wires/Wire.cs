@@ -61,8 +61,6 @@ public class Wire : MonoBehaviour
 
             positions.Add(mousePos());
 
-            Debug.Log(positions.Count);
-
             lr.SetPositions(positions.ToArray());
             lr.SetVertexCount(positions.Count);
         }
