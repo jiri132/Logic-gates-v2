@@ -8,6 +8,7 @@ namespace Logic.Nodes
     {
         [Header("Node Type")]
         public NodeType Type;
+        public bool onGate = false;
 
         [Header("Node State")]
         [SerializeField] private byte _state;
@@ -20,7 +21,7 @@ namespace Logic.Nodes
 
                 _state = value;
                 UpdateUI();
-                if (Type == NodeType.Input) { Invoke("_propegation", LogicSettings.Instance.interval); }
+                if (Type == NodeType.Input && onGate) { Invoke("_propegation", LogicSettings.Instance.interval); }
                 else if (Type == NodeType.Output) { Invoke("_transferdata", LogicSettings.Instance.interval); }
             }
         }

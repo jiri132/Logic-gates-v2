@@ -7,7 +7,6 @@ using Logic.Nodes;
 
 public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
 {
-    public bool Duplicate = false;
     public bool isDragging = true;
 
     public T obj;

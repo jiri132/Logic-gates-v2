@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7658464151131672961}
   - component: {fileID: 7658464151131672962}
-  - component: {fileID: 7658464151131672963}
+  - component: {fileID: 53817283500451722}
   - component: {fileID: 7658464151131672972}
   m_Layer: 0
-  m_Name: Input_node
+  m_Name: custom_node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7658464151131672963
+--- !u!114 &53817283500451722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7658464151131672960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a139710f773414caa3a1165ef7a2c3, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c91cc692072e54d98a9570427dd27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
@@ -104,6 +104,9 @@ MonoBehaviour:
   _state: 0
   nodeUI: {fileID: 0}
   Wires: []
+  Links:
+    self: {fileID: 0}
+    relations: []
 --- !u!58 &7658464151131672972
 CircleCollider2D:
   m_ObjectHideFlags: 0
