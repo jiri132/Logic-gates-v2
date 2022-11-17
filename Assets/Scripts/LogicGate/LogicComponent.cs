@@ -6,7 +6,7 @@ using Logic.Nodes;
 
 namespace Logic
 {
-    public abstract class LogicComponent : MonoBehaviour
+    public abstract class LogicComponent : DragAndDrop<LogicComponent>
     {
         #region Base Variables
         //used in old system

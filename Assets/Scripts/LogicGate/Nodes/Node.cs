@@ -63,6 +63,9 @@ namespace Logic.Nodes
 
         #region Wire Functions
 
+        public abstract void UpdateWirePositions();
+        
+
         public bool CanConnect(Node other)
         {
             //if the node type is the same it can't connect

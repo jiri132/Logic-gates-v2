@@ -34,6 +34,14 @@ namespace Logic.Nodes
             }
         }
 
+        public override void UpdateWirePositions()
+        {
+            foreach (Wire wire in base.Wires)
+            {
+                wire.SetPosition(0, transform.position);
+            }
+        }
+
         public override void _transferdata()
         {
             if (state == 1) { Links.Trigger(true); }

@@ -20,13 +20,21 @@ namespace Logic.Nodes
                 //link the nodes together
                 OutputNode otherNode = (OutputNode)other.OutputNode;
                 otherNode.Links.CreateRelation(this);
-
+                Wires.Add(other);
                 //mkae th wie to the other node
                 other.InputNode = this;
             }
         }
 
-        
+        public override void UpdateWirePositions()
+        {
+            foreach (Wire wire in base.Wires)
+            {
+                wire.SetPosition(wire.GetPositionCount() - 1, transform.position);
+            }
+        }
+
+
 
         /*public override void Start()
         {
