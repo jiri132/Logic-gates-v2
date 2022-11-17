@@ -31,15 +31,15 @@ namespace Logic
             }
         }
 
-        public void CreateRelation(InputNode other)
+        public void CreateRelation(Node other)
         {
-            relations.Add(new Relation(other));
+            relations.Add(new Relation((InputNode)other));
 
             //acts as an Observable when connecting
             if (self.state == 1)
             {
                 other.state = 1;
-            }
+            }else { other.state = 0; }
         }
     }
 

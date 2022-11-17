@@ -2,21 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//TODO: add the function of datatransfer
-
 namespace Logic.Nodes
 {
-    public class OutputNode : Node
+    public class CustomNode : Node
     {
         [Header("Relations")]
         public LogicLink Links;
 
-        private void OnMouseOver()
+        public override void OnMouseDown()
         {
-            if(Input.GetMouseButtonDown(1)){
-                if (!onGate && Input.GetMouseButtonDown(1)) { if (state == 1) { state = 0; } else { state = 1; } }
-            }
+
+            if (Type == NodeType.Output)
+            {
+                if (!Input.GetMouseButtonDown(0)) { Destroy(GameManager.Instance.selectedWire); return; }
+
+                Wire other = GameManager.Instance.selectedWire;
+
+                if (CanConnect(other.OutputNode))
+                {
+                    //link the nodes together
+                    OutputNode otherNode = (OutputNode)other.OutputNode;
+                    otherNode.Links.CreateRelation(this);
+                    Wires.Add(other);
+                    //mkae th wie to the other node
+                    other.InputNode = this;
+                }
+                return;
+            } 
+
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -28,7 +41,7 @@ namespace Logic.Nodes
                 GameManager.Instance.selectedWire = wire;
                 Wires.Add(wire);
             }
-            else if (Input.GetMouseButtonDown(2))
+            else if (Input.GetMouseButtonDown(1))
             {
                 foreach (Wire wire in Wires.ToArray())
                 {
@@ -36,41 +49,15 @@ namespace Logic.Nodes
                     Wires.Remove(wire);
                 }
             }
-
-        }
-
-        public override void OnMouseDown()
-        {
-            
         }
 
         public override void UpdateWirePositions()
         {
             foreach (Wire wire in Wires)
             {
-                wire.SetPosition(0, transform.position);
+                wire.SetPosition(wire.GetPositionCount() - 1, transform.position);
             }
         }
-
-        public override void _transferdata()
-        {
-            if (state == 1) { Links.Trigger(true); }
-            else { Links.Trigger(false); }
-        }
-
-        private void Awake()
-        {
-            Links.self = this;
-        }
-
-        private void Update()
-        {
-        }
-
-        /*public void Start()
-        {
-            base.Type = NodeType.Output;
-            Links.self = this;
-        }*/
     }
+    
 }
