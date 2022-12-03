@@ -62,15 +62,5 @@ namespace Logic.Nodes
         {
             Links.self = this;
         }
-
-        private void Update()
-        {
-        }
-
-        /*public void Start()
-        {
-            base.Type = NodeType.Output;
-            Links.self = this;
-        }*/
     }
 }

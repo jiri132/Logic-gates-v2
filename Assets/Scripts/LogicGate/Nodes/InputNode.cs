@@ -8,11 +8,6 @@ namespace Logic.Nodes
     {
         public override void OnMouseDown()
         {
-            
-
-            //early return if it is not left mouse input and destroy the wire
-            //if (!Input.GetMouseButtonDown(0)) { Destroy(GameManager.Instance.selectedWire); return; }
-
             Wire other = GameManager.Instance.selectedWire;
 
             if (CanConnect(other.OutputNode))
@@ -34,12 +29,5 @@ namespace Logic.Nodes
                 wire.SetPosition(wire.GetPositionCount() - 1, transform.position);
             }
         }
-
-
-
-        /*public override void Start()
-        {
-            base.Type = NodeType.Input;
-        }*/
     }
 }

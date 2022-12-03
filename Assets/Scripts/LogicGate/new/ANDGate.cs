@@ -6,19 +6,7 @@ namespace Logic
 {
     public class ANDGate : LogicComponent
     {
-        #region Variables
-
-
-
-        #endregion
-
-        public void Start()
-        {
-
-        }
-
         #region Overrides Of Component
-
         private void Awake()
         {
             base.NameSetup("AND");
@@ -31,7 +19,6 @@ namespace Logic
             if ((base.inputs[0].state == 1 && base.inputs[1].state == 1) && outputs[0].state == 0) { base.outputs[0].state = 1; }
             else if (outputs[0].state != 0 && (base.inputs[0].state != 1 || base.inputs[1].state != 1)) { base.outputs[0].state = 0; }
         }
-
         #endregion
     }
 }
