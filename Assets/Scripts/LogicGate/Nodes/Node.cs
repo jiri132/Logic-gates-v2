@@ -9,6 +9,7 @@ namespace Logic.Nodes
         [Header("Node Type")]
         public NodeType Type;
         public bool onGate = false;
+        public int nodeID;
 
         [Header("Node State")]
         [SerializeField] private byte _state;
@@ -32,7 +33,7 @@ namespace Logic.Nodes
         public List<Wire> Wires;
 
         [Header("Nodes Parent")]
-        private LogicComponent ownGate;
+        public LogicComponent ownGate;
 
         public void Start()
         {
@@ -66,7 +67,6 @@ namespace Logic.Nodes
 
         public abstract void UpdateWirePositions();
         
-
         public bool CanConnect(Node other)
         {
             //if the node type is the same it can't connect
