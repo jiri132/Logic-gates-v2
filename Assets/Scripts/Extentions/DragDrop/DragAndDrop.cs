@@ -7,9 +7,9 @@ using Logic.Nodes;
 
 public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
 {
-    public bool isDragging = true;
+    public bool isDragging = false;
 
-    public T obj;
+    private T obj;
 
     private Vector2 mousePos()
     {
