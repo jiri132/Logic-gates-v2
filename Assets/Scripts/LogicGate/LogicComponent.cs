@@ -9,8 +9,10 @@ namespace Logic
     public abstract class LogicComponent : DragAndDrop<LogicComponent>
     {
         #region Base Variables
-        //used in old system
-        //public abstract TYPES GetLogicType();
+        [Header("Basic Information")]
+        public TYPES Type;
+        public int ID { get; private set; }
+
 
         [Header("LogicGate Name")]
         public new string name;
@@ -23,8 +25,6 @@ namespace Logic
             protected set
             {
                 _inputs = value;
-
-                //Invoke("Propegation", LogicSettings.Instance.interval);
             }
         }
 
@@ -35,8 +35,6 @@ namespace Logic
             protected set
             {
                 _outputs = value;
-
-                //Invoke("TransferData", LogicSettings.Instance.interval);
             }
         }
 
@@ -44,13 +42,9 @@ namespace Logic
 
         #region Abstracts
 
-        public virtual void Propegation() { }
+        public abstract void Propegation();
        
         #endregion
-
-        #region Virtuals
-
-
 
         #region Setups
         /// <summary>
@@ -60,28 +54,15 @@ namespace Logic
         /// <param name="self">it self</param>
         /// <param name="inputs">the total input nodes</param>
         /// <param name="outputs">the total output nodes</param>
-        public virtual void Setup(string name, LogicComponent self, byte[] inputs, byte[] outputs)
+        public virtual void Setup(string name)
         {
             NameSetup(name);
-            IOSetup(inputs,outputs);
+            this.ID = GameManager.Instance.AllGates.Count;
 
-            Invoke("Propegation", 1f);
+            Invoke("Propegation", LogicSettings.Instance.interval);
         }
 
-        //TODO: Revamp the IOSetup function
-        /// <summary>
-        /// this is the hardcoded setup for inputs and outputs
-        /// </summary>
-        /// <param name="inputs">output nodes</param>
-        /// <param name="outputs">input nodes</param>
-        public virtual void IOSetup(byte[] inputs, byte[] outputs)
-        {
-           /* _inputs = new Node[inputs.Length];
-            _outputs = new Node[outputs.Length];*/
-        }
-
-
-        public virtual void NameSetup(string name)
+        private void NameSetup(string name)
         {
             this.name = name;
         }
@@ -98,7 +79,7 @@ namespace Logic
             }
             return data;
         }
-        public virtual void SetInput(byte[] data)
+        public void SetInput(byte[] data)
         {
             int i = 0;
             foreach (Node inputNode in inputs)
@@ -110,7 +91,6 @@ namespace Logic
 
         #endregion
 
-        #endregion
 
 
     }

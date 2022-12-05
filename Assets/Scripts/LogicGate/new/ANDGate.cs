@@ -9,9 +9,8 @@ namespace Logic
         #region Overrides Of Component
         private void Awake()
         {
-            base.NameSetup("AND");
-            Invoke("Propegation", LogicSettings.Instance.interval);
-            //base.Setup("AND",this,new byte[2],new byte[1]);
+            base.Setup("AND");
+            GameManager.Instance.AllGates.Add(this);
         }
 
         public override void Propegation()
