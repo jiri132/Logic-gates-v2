@@ -32,6 +32,9 @@ public class GateData
             GateSpawnFormat.Add(i, gate.Type);
         }
 
+
+
+
         //Add the Relaitons
         for (int i = 0; i < NumberOfGates; i++)
         {
