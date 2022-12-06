@@ -28,6 +28,8 @@ public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
 
         if (isDragging == false) { return; }
 
+        if (Input.GetKeyDown(KeyCode.Delete)) { Destroy(obj); }
+
         this.transform.position = mousePos();
         
         foreach (Node node in obj.outputs)
