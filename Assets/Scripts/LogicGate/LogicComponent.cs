@@ -12,7 +12,7 @@ namespace Logic
         [Header("Basic Information")]
         public TYPES Type;
         public int ID { get; private set; }
-
+        public int Local_ID { get; set; }
 
         [Header("LogicGate Name")]
         public new string name;
@@ -42,7 +42,7 @@ namespace Logic
 
         #region Abstracts
 
-        public abstract void Propegation();
+        public virtual void Propegation() { }
        
         #endregion
 
@@ -87,6 +87,11 @@ namespace Logic
                 inputNode.state = data[i];
                 i++;
             }
+        }
+
+        public void SetID(int ID)
+        {
+            this.ID = ID;
         }
 
         #endregion
