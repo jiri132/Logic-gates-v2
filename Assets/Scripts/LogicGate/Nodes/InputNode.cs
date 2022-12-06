@@ -8,6 +8,8 @@ namespace Logic.Nodes
     {
         public override void OnMouseDown()
         {
+            if (GameManager.Instance.selectedWire == null) { return; }
+
             Wire other = GameManager.Instance.selectedWire;
 
             if (CanConnect(other.OutputNode))
