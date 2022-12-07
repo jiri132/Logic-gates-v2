@@ -7,7 +7,7 @@ using Logic.Nodes;
 
 public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
 {
-    public bool isDragging = false;
+    public bool isDragging = true;
 
     private T obj;
 
@@ -28,7 +28,7 @@ public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
 
         if (isDragging == false) { return; }
 
-        if (Input.GetKeyDown(KeyCode.Delete)) { Destroy(obj); }
+        if (Input.GetKeyDown(KeyCode.Delete)) { Destroy(obj.gameObject); }
 
         this.transform.position = mousePos();
         
