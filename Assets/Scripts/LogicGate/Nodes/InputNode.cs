@@ -20,7 +20,7 @@ namespace Logic.Nodes
             {
                 //link the nodes together
 
-                if (other.OutputNode as CustomNode == true)
+                if (other.OutputNode.GetType() == typeof(CustomNode))
                 {
                     //get the correct node cast
                     CustomNode otherNode = (CustomNode)other.OutputNode;

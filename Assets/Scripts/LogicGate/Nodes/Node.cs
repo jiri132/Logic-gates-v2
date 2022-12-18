@@ -23,7 +23,7 @@ namespace Logic.Nodes
                 _state = value;
                 UpdateUI();
                 if (Type == NodeType.Input && onGate) { Invoke("_propegation", LogicSettings.Instance.interval); }
-                else if (Type == NodeType.Output || Type == NodeType.CustomInput) { Invoke("_transferdata", LogicSettings.Instance.interval); }
+                else if (Type == NodeType.Output || Type == NodeType.CustomInput || Type == NodeType.CustomOutput) { Invoke("_transferdata", LogicSettings.Instance.interval); }
             }
         }
         [Header("Node UI")]

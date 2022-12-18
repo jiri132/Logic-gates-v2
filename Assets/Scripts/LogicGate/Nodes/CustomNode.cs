@@ -22,23 +22,24 @@ namespace Logic.Nodes
 
         public void OnMouseOver()
         {
-            if (Type == NodeType.Output)
+            if (Type == NodeType.CustomOutput)
             {
-                if (!Input.GetMouseButtonDown(0)) { Destroy(GameManager.Instance.selectedWire); return; }
-
-                Wire other = GameManager.Instance.selectedWire;
-
-                if (CanConnect(other.OutputNode))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    //link the nodes together
-                    OutputNode otherNode = (OutputNode)other.OutputNode;
-                    otherNode.Links.CreateRelation(this);
-                    Wires.Add(other);
+                    Wire other = GameManager.Instance.selectedWire;
 
-                    //make th wie to the other node
-                    other.InputNode = this;
+                    if (CanConnect(other.OutputNode))
+                    {
+                        //link the nodes together
+                        OutputNode otherNode = (OutputNode)other.OutputNode;
+                        otherNode.Links.CreateRelation(this);
+                        Wires.Add(other);
+
+                        //make th wie to the other node
+                        other.InputNode = this;
+                    }
                 }
-            }else
+            }else if (Type == NodeType.CustomInput)
             {
                 //return the function if it is input of the already custom created gate
                 if (onGate == true) { return; }
@@ -64,6 +65,7 @@ namespace Logic.Nodes
                         Destroy(wire.gameObject);
                         Wires.Remove(wire);
                     }
+                    Links.relations = new List<Relation>();
                 }
             } 
         }
