@@ -23,7 +23,7 @@ namespace Logic.Nodes
                 _state = value;
                 UpdateUI();
                 if (Type == NodeType.Input && onGate) { Invoke("_propegation", LogicSettings.Instance.interval); }
-                else if (Type == NodeType.Output) { Invoke("_transferdata", LogicSettings.Instance.interval); }
+                else if (Type == NodeType.Output || Type == NodeType.CustomInput) { Invoke("_transferdata", LogicSettings.Instance.interval); }
             }
         }
         [Header("Node UI")]
@@ -73,14 +73,6 @@ namespace Logic.Nodes
             if (this.Type == other.Type) { return false; }
             return true;
         }
-
-        #endregion
-
-
-        #region Abstracts
-
-        //wire spawning
-        public abstract void OnMouseDown();
 
         #endregion
     }

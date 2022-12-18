@@ -1,4 +1,4 @@
 namespace Logic.Nodes
 {
-    public enum NodeType { Input, Output }
+    public enum NodeType { Input, Output, CustomInput }
 }

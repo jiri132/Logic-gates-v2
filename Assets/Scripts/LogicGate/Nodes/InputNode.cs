@@ -6,21 +6,40 @@ namespace Logic.Nodes
 {
     public class InputNode : Node
     {
-        public override void OnMouseDown()
+        public void OnMouseOver()
         {
+            if (!Input.GetMouseButtonDown(0)) { return; }
+
             if (GameManager.Instance.selectedWire == null) { return; }
 
             Wire other = GameManager.Instance.selectedWire;
 
+            Debug.Log(CanConnect(other.OutputNode));
+
             if (CanConnect(other.OutputNode))
             {
                 //link the nodes together
-                OutputNode otherNode = (OutputNode)other.OutputNode;
-                otherNode.Links.CreateRelation(this);
-                Wires.Add(other);
-                GameManager.Instance.selectedWire = null;
-                //mkae th wie to the other node
-                other.InputNode = this;
+
+                if (other.OutputNode as CustomNode == true)
+                {
+                    //get the correct node cast
+                    CustomNode otherNode = (CustomNode)other.OutputNode;
+                    otherNode.Links.CreateRelation(this);
+                    Wires.Add(other);
+                    GameManager.Instance.selectedWire = null;
+                    //make the wire to the other node
+                    other.InputNode = this;
+                }
+                else
+                {
+                    //get the correct node cast
+                    OutputNode otherNode = (OutputNode)other.OutputNode;
+                    otherNode.Links.CreateRelation(this);
+                    Wires.Add(other);
+                    GameManager.Instance.selectedWire = null;
+                    //make the wire to the other node
+                    other.InputNode = this;
+                }
             }
         }
 

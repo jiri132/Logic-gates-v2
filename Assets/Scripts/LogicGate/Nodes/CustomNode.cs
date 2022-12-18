@@ -9,9 +9,19 @@ namespace Logic.Nodes
         [Header("Relations")]
         public LogicLink Links;
 
-        public override void OnMouseDown()
+        private void Awake()
         {
+            Links.self = this;
+        }
 
+        public override void _transferdata()
+        {
+            if (state == 1) { Links.Trigger(true); }
+            else { Links.Trigger(false); }
+        }
+
+        public void OnMouseOver()
+        {
             if (Type == NodeType.Output)
             {
                 if (!Input.GetMouseButtonDown(0)) { Destroy(GameManager.Instance.selectedWire); return; }
@@ -24,31 +34,38 @@ namespace Logic.Nodes
                     OutputNode otherNode = (OutputNode)other.OutputNode;
                     otherNode.Links.CreateRelation(this);
                     Wires.Add(other);
-                    //mkae th wie to the other node
+
+                    //make th wie to the other node
                     other.InputNode = this;
                 }
-                return;
-            } 
-
-
-            if (Input.GetMouseButtonDown(0))
+            }else
             {
-                //instantie and get the wire component
-                Wire wire = Instantiate(LogicSettings.Instance.wirePrefab, this.transform.position, Quaternion.identity, this.transform).GetComponent<Wire>();
+                //return the function if it is input of the already custom created gate
+                if (onGate == true) { return; }
 
-                //give all the things wire needs and gamemanager
-                wire.OutputNode = this;
-                GameManager.Instance.selectedWire = wire;
-                Wires.Add(wire);
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                foreach (Wire wire in Wires.ToArray())
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Destroy(wire.gameObject);
-                    Wires.Remove(wire);
+                    //instantie and get the wire component
+                    Wire wire = Instantiate(LogicSettings.Instance.wirePrefab, this.transform.position, Quaternion.identity, this.transform).GetComponent<Wire>();
+
+                    //give all the things wire needs and gamemanager
+                    wire.OutputNode = this;
+                    GameManager.Instance.selectedWire = wire;
+                    Wires.Add(wire);
                 }
-            }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    if (!onGate && Input.GetMouseButtonDown(1)) { if (state == 1) { state = 0; } else { state = 1; } }
+                }
+                else if (Input.GetMouseButtonDown(2))
+                {
+                    foreach (Wire wire in Wires.ToArray())
+                    {
+                        Destroy(wire.gameObject);
+                        Wires.Remove(wire);
+                    }
+                }
+            } 
         }
 
         public override void UpdateWirePositions()
