@@ -101,9 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   onGate: 1
+  nodeID: 0
   _state: 0
   nodeUI: {fileID: 0}
   Wires: []
+  ownGate: {fileID: 0}
 --- !u!58 &5596299020481152543
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -387,9 +389,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   onGate: 1
+  nodeID: 1
   _state: 0
   nodeUI: {fileID: 0}
   Wires: []
+  ownGate: {fileID: 0}
 --- !u!58 &5596299021457411766
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -587,9 +591,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   onGate: 1
+  nodeID: 0
   _state: 0
   nodeUI: {fileID: 0}
   Wires: []
+  ownGate: {fileID: 0}
   Links:
     self: {fileID: 0}
     relations: []
@@ -712,6 +718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDragging: 0
+  Type: 1
   name: AND
   _inputs:
   - {fileID: 5596299020481152542}
