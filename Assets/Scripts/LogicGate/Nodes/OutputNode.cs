@@ -25,8 +25,11 @@ namespace Logic.Nodes
             {
                 foreach (Wire wire in Wires.ToArray())
                 {
-                    Destroy(wire.gameObject);
+                    wire.InputNode._state = 0;
+                    wire.InputNode.UpdateUI();
+                    wire.InputNode.Wires.Remove(wire);
                     Wires.Remove(wire);
+                    Destroy(wire.gameObject);
                 }
             }
 
