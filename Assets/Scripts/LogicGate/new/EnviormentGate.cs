@@ -47,8 +47,6 @@ namespace Logic
         {
             if (mousePos().x > playingField.x * -1 && mousePos().x < (playingField.x - 1) * -1)
             {
-                Debug.Log("IsLeft");
-
                 return true;
             }
             return false;
@@ -73,7 +71,6 @@ namespace Logic
                 
                 if (IsRight())
                 {
-                    Debug.Log("Hello");
                     //create outputs
                     Node output = Instantiate(CustomOutput, ParentOutput).GetComponentInChildren<Node>();
                     outputNodes.Add(output);
