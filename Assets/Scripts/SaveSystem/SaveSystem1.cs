@@ -13,7 +13,7 @@ public static class SaveSystem1
    public static void SaveGate(GateData data, string FileName)
    {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + $"/{FileName}.gate";
+        string path = Application.persistentDataPath + $"/{FileName}{LogicSettings.Instance.prefix}";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         formatter.Serialize(stream, data);
@@ -25,7 +25,7 @@ public static class SaveSystem1
 
     public static GateData LoadGate(string FileName)
     {
-        string path = Application.persistentDataPath + $"/{FileName}.gate";
+        string path = Application.persistentDataPath + $"/{FileName}{LogicSettings.Instance.prefix}";
 
         if (File.Exists(path))
         {
