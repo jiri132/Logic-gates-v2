@@ -11,11 +11,13 @@ namespace Logic
         #region Base Variables
         [Header("Basic Information")]
         public TYPES Type;
-        public int ID { get; private set; }
-        public int Local_ID { get; set; }
+        public int ID;
+        public bool isLocal = false;
+        public int Local_ID;
 
         [Header("LogicGate Name")]
         public new string name;
+        public Text gateText;
 
         [Header("Internal Data")]
         [SerializeField] private Node[] _inputs;
@@ -54,17 +56,23 @@ namespace Logic
         /// <param name="self">it self</param>
         /// <param name="inputs">the total input nodes</param>
         /// <param name="outputs">the total output nodes</param>
-        public virtual void Setup(string name)
+        public void Setup(string name)
         {
             NameSetup(name);
-            this.ID = GameManager.Instance.AllGates.Count;
-
             Invoke("Propegation", LogicSettings.Instance.interval);
+
+            if (!isLocal)
+            {
+                this.ID = GameManager.Instance.AllGates.Count;
+                GameManager.Instance.AllGates.Add(this);
+            }
         }
 
         private void NameSetup(string name)
         {
             this.name = name;
+
+            if (gateText != null) { gateText.text = name; }
         }
         #endregion
         #region Reusable Functions
