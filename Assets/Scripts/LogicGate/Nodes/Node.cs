@@ -12,7 +12,7 @@ namespace Logic.Nodes
         public int nodeID;
 
         [Header("Node State")]
-        [SerializeField] private byte _state;
+        [SerializeField] public byte _state;
         public byte state
         {
             get { return _state; }
@@ -50,13 +50,13 @@ namespace Logic.Nodes
             if (state == 1) 
             {
                 nodeUI.color = LogicSettings.Instance.onColor;
-                foreach (Wire wire in Wires)
+                foreach (Wire wire in Wires.ToArray())
                 {
                     wire.UpdateUI(LogicSettings.Instance.onColor);
                 }
                 return; 
             }
-            foreach (Wire wire in Wires)
+            foreach (Wire wire in Wires.ToArray())
             {
                 wire.UpdateUI(LogicSettings.Instance.offColor);
             }
@@ -70,7 +70,7 @@ namespace Logic.Nodes
         public bool CanConnect(Node other)
         {
             //if the node type is the same it can't connect
-            if (this.Type == other.Type) { return false; }
+            if (this.Type == other.Type && this.onGate == other.onGate) { return false; }
             return true;
         }
 
