@@ -53,9 +53,6 @@ namespace Logic
         /// just the basic setup to be completed when waking up the script
         /// </summary>
         /// <param name="name">logic gate name</param>
-        /// <param name="self">it self</param>
-        /// <param name="inputs">the total input nodes</param>
-        /// <param name="outputs">the total output nodes</param>
         public void Setup(string name)
         {
             NameSetup(name);
