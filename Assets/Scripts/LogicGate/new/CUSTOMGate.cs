@@ -22,6 +22,11 @@ namespace Logic
         public GameObject prefabNOT;
         public GameObject prefabAND;
         public GameObject prefabCUSTOM;
+        public GameObject prefabInput;
+        public GameObject prefabOutput;
+        public Transform inputParent;
+        public Transform outputParent;
+
 
         [Header("SavedData")]
         public GateData DATA;
@@ -33,10 +38,8 @@ namespace Logic
         }
 
 
-        void SetData()
+        private void SetData()
         {
-            gateText = GetComponentInChildren<Text>();
-
             //load the data
             DATA = SaveSystem1.LoadGate(fileName);
 
@@ -45,11 +48,39 @@ namespace Logic
             sr.color = gateColor;
             sr2.color = gateColor * 0.4f;
 
+            SetIO();
+
+            CreateGatesUsed();
+
+            rebuildConnections();
+        }
+
+        private void SetIO()
+        {
+            List<Node> nodesList = new List<Node>();
+
+            for (int i = 0; i < DATA.NumberOfIputs; i++)
+            {
+                Node inputNode = Instantiate(prefabInput, inputParent).GetComponent<CustomNode>();
+                inputNode.nodeID = nodesList.Count;
+                nodesList.Add(inputNode);
+            }
+            inputs = nodesList.ToArray();
+            nodesList = new List<Node>();
+            for (int i = 0; i < DATA.NumberOfOutputs; i++)
+            {
+                Node outputNode = Instantiate(prefabOutput, outputParent).GetComponent<CustomNode>();
+                outputNode.nodeID = nodesList.Count;
+                nodesList.Add(outputNode);
+            }
+            outputs = nodesList.ToArray();
+        }
+
+        private void CreateGatesUsed()
+        {
             //add the gates in the order of instantiating
             for (int i = 0; i < DATA.NumberOfGates; i++)
             {
-                Debug.Log(DATA.GateSpawnFormat[i]);
-
                 switch (DATA.GateSpawnFormat[i])
                 {
                     case "NOT":
@@ -67,6 +98,9 @@ namespace Logic
                         break;
                     //when the gate is not a basic not or and gate it makes the custom gate with the correct filename
                     default:
+                        //if it has an empty one that means it is the custom gate insides
+                        if (DATA.GateSpawnFormat[i] == "") { AllGatesForCustomGate.Add(this); continue; }
+
                         prefabCUSTOM.GetComponent<CUSTOMGate>().fileName = DATA.GateSpawnFormat[i];
                         LogicComponent custom = Instantiate(prefabCUSTOM, parent).GetComponent<CUSTOMGate>();
                         custom.isLocal = true;
@@ -75,7 +109,10 @@ namespace Logic
                         break;
                 }
             }
+        }
 
+        private void rebuildConnections()
+        {
             //rebuild the connections
             for (int i = 0; i < DATA.Connections.Count; i++)
             {
@@ -84,17 +121,40 @@ namespace Logic
                 int ConnectionID = DATA.Connections[i].Item3;
                 int ConnectionIDInput = DATA.Connections[i].Item4;
 
-                OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
-                node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
+                Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
+                Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
+
+                LogicComponent lc = AllGatesForCustomGate[ID];
+
+                if (lc.GetType() != typeof(CUSTOMGate))
+                {
+                    if (ConnectionID != 0)
+                    {
+                        OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
+                        node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
+                        
+                    }else
+                    {
+                        OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
+                        node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].outputs[ConnectionIDInput]);
+                    }
+                }
+                else
+                {
+                    CustomNode node = AllGatesForCustomGate[ID].inputs[IDOutput] as CustomNode;
+                    node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
+                }
             }
-        }
+        } 
+
 
         private void Start()
         {
             SetData();
 
+            gateText = GetComponentInChildren<Text>();
+
             base.Setup(DATA.Name);
-            
         }
     }
 }
