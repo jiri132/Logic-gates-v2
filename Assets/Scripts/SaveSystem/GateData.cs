@@ -30,8 +30,8 @@ public class GateData
         rgb = new float[3] { Enviorment.Instance.randomColor.r, Enviorment.Instance.randomColor.g, Enviorment.Instance.randomColor.b };
 
         NumberOfGates = GameManager.Instance.AllGates.Count;
-        NumberOfIputs = Enviorment.Instance.;
-        NumberOfOutputs = ;
+        NumberOfIputs = Enviorment.Instance.GetComponent<EnviormentGate>().inputs.Length;
+        NumberOfOutputs = Enviorment.Instance.GetComponent<EnviormentGate>().outputs.Length;
 
 
         //Add the Dictionary
@@ -49,38 +49,101 @@ public class GateData
         {
             LogicComponent gate = GameManager.Instance.AllGates[i];
 
+            if (gate.GetType() == typeof(EnviormentGate))
+            {
+                for (int x = 0; x < gate.inputs.Length; x++)
+                {
+                    CustomNode input = gate.inputs[x] as CustomNode;
+                    for (int y = 0; y < input.Links.relations.Count; y++)
+                    {
+                        //copy of the relations
+                        List<Relation> _relation = input.Links.relations;
+
+                        //copy form the relation gate
+                        LogicComponent relationGate = _relation[y].inputNode.ownGate;
+
+                        Debug.Log($"GateID: {i} | GateOutputID: {x}");
+                        Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[y].inputNode.nodeID}");
+
+                        int ID = i; // i is the ID from the gate
+                        int IDOutput = x; // j is the ID of output node
+                        int ConnectionID = relationGate.ID; // the relations gate ID
+                        int ConnectionIDInput = _relation[y].inputNode.nodeID; // the connection to inputnode ID
+
+                        Connections.Add(new Tuple<int, int, int, int>(
+                            ID,
+                            IDOutput,
+                            ConnectionID,
+                            ConnectionIDInput));
+                    }
+                }
+            }
+
             for (int j = 0; j < gate.outputs.Length; j++)
             {
-                OutputNode output = gate.outputs[j] as OutputNode;
-
-                for (int k = 0; k < output.Links.relations.Count; k++)
+                if (gate.GetType() == typeof(CUSTOMGate) || gate.GetType() == typeof(EnviormentGate))
                 {
-                    //copy of the relations
-                    List<Relation> _relation = (gate.outputs[j] as OutputNode).Links.relations;
-
-                    //copy form the relation gate
-                    LogicComponent relationGate = _relation[j].inputNode.ownGate;
+                    CustomNode output = gate.outputs[j] as CustomNode;
+                    for (int k = 0; k < output.Links.relations.Count; k++)
+                    {
 
 
-                    
+                        //copy of the relations
+                        List<Relation> _relation;
 
-                    Debug.Log(i);
-                    Debug.Log(j);
-                    Debug.Log(relationGate.ID);
-                    Debug.Log(_relation[j].inputNode.nodeID);
+                        if (gate.GetType() == typeof(CUSTOMGate))
+                        {
+                            _relation = (output.Links.relations);
+                        }else { _relation = (gate.outputs[j] as OutputNode).Links.relations; }
 
-                    int ID = i; // i is the ID from the gate
-                    int IDOutput = j; // j is the ID of output node
-                    int ConnectionID = relationGate.ID; // the relations gate ID
-                    int ConnectionIDInput = _relation[j].inputNode.nodeID; // the connection to inputnode ID
+                        //copy form the relation gate
+                        LogicComponent relationGate = _relation[k].inputNode.ownGate;
 
+                        Debug.Log($"GateID: {i} | GateOutputID: {j}");
+                        Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[k].inputNode.nodeID}");
 
-                    Connections.Add(new Tuple<int, int, int, int>(
-                        ID,
-                        IDOutput,
-                        ConnectionID,
-                        ConnectionIDInput));
+                        int ID = i; // i is the ID from the gate
+                        int IDOutput = j; // j is the ID of output node
+                        int ConnectionID = relationGate.ID; // the relations gate ID
+                        int ConnectionIDInput = _relation[k].inputNode.nodeID; // the connection to inputnode ID
+
+                        Connections.Add(new Tuple<int, int, int, int>(
+                            ID,
+                            IDOutput,
+                            ConnectionID,
+                            ConnectionIDInput));
+                    }
                 }
+                else
+                {
+                    OutputNode output = gate.outputs[j] as OutputNode;
+                    for (int k = 0; k < output.Links.relations.Count; k++)
+                    {
+                        //copy of the relations
+                        List<Relation> _relation = (gate.outputs[j] as OutputNode).Links.relations;
+
+                        //copy form the relation gate
+                        LogicComponent relationGate = _relation[k].inputNode.ownGate;
+
+                        Debug.Log($"GateID: {i} | GateOutputID: {j}");
+                        Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[k].inputNode.nodeID}");
+
+                        int ID = i; // i is the ID from the gate
+                        int IDOutput = j; // j is the ID of output node
+                        int ConnectionID = relationGate.ID; // the relations gate ID
+                        int ConnectionIDInput = _relation[k].inputNode.nodeID; // the connection to inputnode ID
+
+                        Connections.Add(new Tuple<int, int, int, int>(
+                            ID,
+                            IDOutput,
+                            ConnectionID,
+                            ConnectionIDInput));
+                    }
+                }
+
+                
+
+                
             }
         }
     }
