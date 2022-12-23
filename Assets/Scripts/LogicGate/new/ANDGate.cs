@@ -9,10 +9,7 @@ namespace Logic
         #region Overrides Of Component
         private void Awake()
         {
-            if (isLocal) { return; }
-
             base.Setup("AND");
-            GameManager.Instance.AllGates.Add(this);
         }
 
         public override void Propegation()
