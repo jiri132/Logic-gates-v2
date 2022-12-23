@@ -9,11 +9,15 @@ namespace Logic
     public abstract class LogicComponent : DragAndDrop<LogicComponent>
     {
         #region Base Variables
-        //used in old system
-        //public abstract TYPES GetLogicType();
+        [Header("Basic Information")]
+        public TYPES Type;
+        public int ID;
+        public bool isLocal = false;
+        public int Local_ID;
 
         [Header("LogicGate Name")]
         public new string name;
+        public Text gateText;
 
         [Header("Internal Data")]
         [SerializeField] private Node[] _inputs;
@@ -23,8 +27,6 @@ namespace Logic
             protected set
             {
                 _inputs = value;
-
-                //Invoke("Propegation", LogicSettings.Instance.interval);
             }
         }
 
@@ -35,8 +37,6 @@ namespace Logic
             protected set
             {
                 _outputs = value;
-
-                //Invoke("TransferData", LogicSettings.Instance.interval);
             }
         }
 
@@ -48,42 +48,28 @@ namespace Logic
        
         #endregion
 
-        #region Virtuals
-
-
-
         #region Setups
         /// <summary>
         /// just the basic setup to be completed when waking up the script
         /// </summary>
         /// <param name="name">logic gate name</param>
-        /// <param name="self">it self</param>
-        /// <param name="inputs">the total input nodes</param>
-        /// <param name="outputs">the total output nodes</param>
-        public virtual void Setup(string name, LogicComponent self, byte[] inputs, byte[] outputs)
+        public void Setup(string name)
         {
             NameSetup(name);
-            IOSetup(inputs,outputs);
+            Invoke("Propegation", LogicSettings.Instance.interval);
 
-            Invoke("Propegation", 1f);
+            if (!isLocal)
+            {
+                this.ID = GameManager.Instance.AllGates.Count;
+                GameManager.Instance.AllGates.Add(this);
+            }
         }
 
-        //TODO: Revamp the IOSetup function
-        /// <summary>
-        /// this is the hardcoded setup for inputs and outputs
-        /// </summary>
-        /// <param name="inputs">output nodes</param>
-        /// <param name="outputs">input nodes</param>
-        public virtual void IOSetup(byte[] inputs, byte[] outputs)
-        {
-           /* _inputs = new Node[inputs.Length];
-            _outputs = new Node[outputs.Length];*/
-        }
-
-
-        public virtual void NameSetup(string name)
+        private void NameSetup(string name)
         {
             this.name = name;
+
+            if (gateText != null) { gateText.text = name; }
         }
         #endregion
         #region Reusable Functions
@@ -98,7 +84,7 @@ namespace Logic
             }
             return data;
         }
-        public virtual void SetInput(byte[] data)
+        public void SetInput(byte[] data)
         {
             int i = 0;
             foreach (Node inputNode in inputs)
@@ -108,9 +94,13 @@ namespace Logic
             }
         }
 
-        #endregion
+        public void SetID(int ID)
+        {
+            this.ID = ID;
+        }
 
         #endregion
+
 
 
     }

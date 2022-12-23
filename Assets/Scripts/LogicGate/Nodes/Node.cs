@@ -9,9 +9,10 @@ namespace Logic.Nodes
         [Header("Node Type")]
         public NodeType Type;
         public bool onGate = false;
+        public int nodeID;
 
         [Header("Node State")]
-        [SerializeField] private byte _state;
+        [SerializeField] public byte _state;
         public byte state
         {
             get { return _state; }
@@ -22,7 +23,7 @@ namespace Logic.Nodes
                 _state = value;
                 UpdateUI();
                 if (Type == NodeType.Input && onGate) { Invoke("_propegation", LogicSettings.Instance.interval); }
-                else if (Type == NodeType.Output) { Invoke("_transferdata", LogicSettings.Instance.interval); }
+                else if (Type == NodeType.Output || Type == NodeType.CustomInput || Type == NodeType.CustomOutput) { Invoke("_transferdata", LogicSettings.Instance.interval); }
             }
         }
         [Header("Node UI")]
@@ -32,7 +33,7 @@ namespace Logic.Nodes
         public List<Wire> Wires;
 
         [Header("Nodes Parent")]
-        private LogicComponent ownGate;
+        public LogicComponent ownGate;
 
         public void Start()
         {
@@ -49,13 +50,13 @@ namespace Logic.Nodes
             if (state == 1) 
             {
                 nodeUI.color = LogicSettings.Instance.onColor;
-                foreach (Wire wire in Wires)
+                foreach (Wire wire in Wires.ToArray())
                 {
                     wire.UpdateUI(LogicSettings.Instance.onColor);
                 }
                 return; 
             }
-            foreach (Wire wire in Wires)
+            foreach (Wire wire in Wires.ToArray())
             {
                 wire.UpdateUI(LogicSettings.Instance.offColor);
             }
@@ -66,21 +67,12 @@ namespace Logic.Nodes
 
         public abstract void UpdateWirePositions();
         
-
         public bool CanConnect(Node other)
         {
             //if the node type is the same it can't connect
-            if (this.Type == other.Type) { return false; }
+            if (this.Type == other.Type && this.onGate == other.onGate) { return false; }
             return true;
         }
-
-        #endregion
-
-
-        #region Abstracts
-
-        //wire spawning
-        public abstract void OnMouseDown();
 
         #endregion
     }

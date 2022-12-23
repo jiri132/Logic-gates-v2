@@ -4,5 +4,5 @@ using UnityEngine;
 
 namespace Logic
 {
-    public enum TYPES { NOT, AND, CUSTOM }
+    public enum TYPES { NOT, AND, CUSTOM, ENVIORMENT }
 }

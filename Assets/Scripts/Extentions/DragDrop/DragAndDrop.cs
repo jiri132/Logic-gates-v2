@@ -9,7 +9,7 @@ public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
 {
     public bool isDragging = true;
 
-    public T obj;
+    private T obj;
 
     private Vector2 mousePos()
     {
@@ -27,6 +27,8 @@ public class DragAndDrop<T> : MonoBehaviour where T : LogicComponent
         if (obj == null) { obj = this as T; return; }
 
         if (isDragging == false) { return; }
+
+        if (Input.GetKeyDown(KeyCode.Delete)) { Destroy(obj.gameObject); }
 
         this.transform.position = mousePos();
         

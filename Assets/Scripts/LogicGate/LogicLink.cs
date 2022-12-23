@@ -33,7 +33,7 @@ namespace Logic
 
         public void CreateRelation(Node other)
         {
-            relations.Add(new Relation((InputNode)other));
+            relations.Add(new Relation(other));
 
             //acts as an Observable when connecting
             if (self.state == 1)
@@ -47,9 +47,9 @@ namespace Logic
     public class Relation
     {
         [Header("Others Information")]
-        public InputNode inputNode;
+        public Node inputNode;
 
-        public Relation(InputNode relation)
+        public Relation(Node relation)
         {
             inputNode = relation;
         }

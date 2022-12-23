@@ -6,24 +6,38 @@ namespace Logic.Nodes
 {
     public class InputNode : Node
     {
-        public override void OnMouseDown()
+        public void OnMouseOver()
         {
-            
+            if (!Input.GetMouseButtonDown(0)) { return; }
 
-            //early return if it is not left mouse input and destroy the wire
-            //if (!Input.GetMouseButtonDown(0)) { Destroy(GameManager.Instance.selectedWire); return; }
+            if (GameManager.Instance.selectedWire == null) { return; }
 
             Wire other = GameManager.Instance.selectedWire;
 
             if (CanConnect(other.OutputNode))
             {
                 //link the nodes together
-                OutputNode otherNode = (OutputNode)other.OutputNode;
-                otherNode.Links.CreateRelation(this);
-                Wires.Add(other);
-                GameManager.Instance.selectedWire = null;
-                //mkae th wie to the other node
-                other.InputNode = this;
+
+                if (other.OutputNode.GetType() == typeof(CustomNode))
+                {
+                    //get the correct node cast
+                    CustomNode otherNode = (CustomNode)other.OutputNode;
+                    otherNode.Links.CreateRelation(this);
+                    Wires.Add(other);
+                    GameManager.Instance.selectedWire = null;
+                    //make the wire to the other node
+                    other.InputNode = this;
+                }
+                else
+                {
+                    //get the correct node cast
+                    OutputNode otherNode = (OutputNode)other.OutputNode;
+                    otherNode.Links.CreateRelation(this);
+                    Wires.Add(other);
+                    GameManager.Instance.selectedWire = null;
+                    //make the wire to the other node
+                    other.InputNode = this;
+                }
             }
         }
 
@@ -34,12 +48,5 @@ namespace Logic.Nodes
                 wire.SetPosition(wire.GetPositionCount() - 1, transform.position);
             }
         }
-
-
-
-        /*public override void Start()
-        {
-            base.Type = NodeType.Input;
-        }*/
     }
 }

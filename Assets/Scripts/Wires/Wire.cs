@@ -48,7 +48,7 @@ public class Wire : MonoBehaviour
         lr = this.GetComponent<LineRenderer>();
         lr.material = wireMaterial;
 
-        lr.SetPosition(0, OutputNode.transform.position);
+        lr.SetPosition(0, mousePos());
     }
 
     private void Update()
@@ -68,12 +68,12 @@ public class Wire : MonoBehaviour
             lr.SetVertexCount(positions.Count);
         }
         
-        /*if (Input.GetMouseButtonDown(0) && isSelectedWire())
+        if (Input.GetMouseButtonDown(2) && isSelectedWire())
         {
             GameManager.Instance.selectedWire = null;
             OutputNode.Wires.RemoveAt(OutputNode.Wires.IndexOf(this));
             Destroy(this.gameObject);
-        }*/
+        }
 
         if (InputNode == null)
         {

@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//TODO: add the function of datatransfer
-
 namespace Logic.Nodes
 {
     public class OutputNode : Node
@@ -14,10 +11,6 @@ namespace Logic.Nodes
 
         private void OnMouseOver()
         {
-            if(Input.GetMouseButtonDown(1)){
-                if (!onGate && Input.GetMouseButtonDown(1)) { if (state == 1) { state = 0; } else { state = 1; } }
-            }
-
             if (Input.GetMouseButtonDown(0))
             {
                 //instantie and get the wire component
@@ -32,16 +25,14 @@ namespace Logic.Nodes
             {
                 foreach (Wire wire in Wires.ToArray())
                 {
-                    Destroy(wire.gameObject);
+                    wire.InputNode._state = 0;
+                    wire.InputNode.UpdateUI();
+                    wire.InputNode.Wires.Remove(wire);
                     Wires.Remove(wire);
+                    Destroy(wire.gameObject);
                 }
             }
 
-        }
-
-        public override void OnMouseDown()
-        {
-            
         }
 
         public override void UpdateWirePositions()
@@ -62,15 +53,5 @@ namespace Logic.Nodes
         {
             Links.self = this;
         }
-
-        private void Update()
-        {
-        }
-
-        /*public void Start()
-        {
-            base.Type = NodeType.Output;
-            Links.self = this;
-        }*/
     }
 }
