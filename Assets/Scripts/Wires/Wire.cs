@@ -68,12 +68,12 @@ public class Wire : MonoBehaviour
             lr.SetVertexCount(positions.Count);
         }
         
-        /*if (Input.GetMouseButtonDown(3) && isSelectedWire())
+        if (Input.GetMouseButtonDown(2) && isSelectedWire())
         {
             GameManager.Instance.selectedWire = null;
             OutputNode.Wires.RemoveAt(OutputNode.Wires.IndexOf(this));
             Destroy(this.gameObject);
-        }*/
+        }
 
         if (InputNode == null)
         {
