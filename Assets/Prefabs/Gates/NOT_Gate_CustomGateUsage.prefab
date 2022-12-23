@@ -223,10 +223,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDragging: 0
   Type: 0
-  ID: 1
-  isLocal: 0
+  ID: 0
+  isLocal: 1
   Local_ID: 0
   name: NOT
+  gateText: {fileID: 0}
   _inputs:
   - {fileID: 26727426869949056}
   _outputs:

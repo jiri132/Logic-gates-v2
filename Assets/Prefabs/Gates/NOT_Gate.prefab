@@ -415,6 +415,7 @@ MonoBehaviour:
   isLocal: 0
   Local_ID: 0
   name: NOT
+  gateText: {fileID: 0}
   _inputs:
   - {fileID: 3210492838414254951}
   _outputs:

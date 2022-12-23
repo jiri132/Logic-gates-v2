@@ -534,9 +534,10 @@ MonoBehaviour:
   isDragging: 0
   Type: 1
   ID: 0
-  isLocal: 0
+  isLocal: 1
   Local_ID: 0
   name: AND
+  gateText: {fileID: 0}
   _inputs:
   - {fileID: 1653367344613941838}
   - {fileID: 1653367345244105449}
