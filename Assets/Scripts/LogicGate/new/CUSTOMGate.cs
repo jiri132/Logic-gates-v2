@@ -34,21 +34,20 @@ namespace Logic
 
         private void Awake()
         {
+            //load the data
+            DATA = SaveSystem1.LoadGate(fileName);
             sr = GetComponent<SpriteRenderer>();
+
+            SetIO();
         }
 
 
         private void SetData()
         {
-            //load the data
-            DATA = SaveSystem1.LoadGate(fileName);
-
             //color the gate
             gateColor = new Color(DATA.rgb[0], DATA.rgb[1], DATA.rgb[2]);
             sr.color = gateColor;
             sr2.color = gateColor * 0.4f;
-
-            SetIO();
 
             CreateGatesUsed();
 
