@@ -24,28 +24,75 @@ namespace Logic.Nodes
         {
             if (Type == NodeType.CustomOutput)
             {
+               
                 if (Input.GetMouseButtonDown(0))
                 {
+                    if (onGate == true)
+                    {
+                        //instantie and get the wire component
+                        Wire wire = Instantiate(LogicSettings.Instance.wirePrefab, this.transform.position, Quaternion.identity, this.transform).GetComponent<Wire>();
+
+                        //give all the things wire needs and gamemanager
+                        wire.OutputNode = this;
+                        GameManager.Instance.selectedWire = wire;
+                        Wires.Add(wire);
+
+                        return;
+                    }
                     Wire other = GameManager.Instance.selectedWire;
 
                     if (CanConnect(other.OutputNode))
                     {
+                        
                         //link the nodes together
-                        OutputNode otherNode = (OutputNode)other.OutputNode;
-                        otherNode.Links.CreateRelation(this);
+                        Node otherNode = other.OutputNode;
+                        if (otherNode.GetType() == typeof(OutputNode))
+                        {
+                            (otherNode as OutputNode).Links.CreateRelation(this);
+                        }
+                        else {
+                            (otherNode as CustomNode).Links.CreateRelation(this);
+                        }
                         Wires.Add(other);
+                        GameManager.Instance.selectedWire = null;
 
-                        //make th wie to the other node
+                        //make the wire to the other node
                         other.InputNode = this;
                     }
                 }
             }else if (Type == NodeType.CustomInput)
             {
                 //return the function if it is input of the already custom created gate
-                if (onGate == true) { return; }
-
                 if (Input.GetMouseButtonDown(0))
                 {
+                    if (onGate == true)
+                    {
+
+                        Wire other = GameManager.Instance.selectedWire;
+
+                        if (CanConnect(other.OutputNode))
+                        {
+
+                            //link the nodes together
+                            Node otherNode = other.OutputNode;
+                            if (otherNode.GetType() == typeof(OutputNode))
+                            {
+                                (otherNode as OutputNode).Links.CreateRelation(this);
+                            }
+                            else
+                            {
+                                (otherNode as CustomNode).Links.CreateRelation(this);
+                            }
+                            Wires.Add(other);
+                            GameManager.Instance.selectedWire = null;
+
+                            //make th wie to the other node
+                            other.InputNode = this;
+                        }
+
+                        return;
+                    }
+
                     //instantie and get the wire component
                     Wire wire = Instantiate(LogicSettings.Instance.wirePrefab, this.transform.position, Quaternion.identity, this.transform).GetComponent<Wire>();
 
