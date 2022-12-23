@@ -14,8 +14,6 @@ namespace Logic.Nodes
 
             Wire other = GameManager.Instance.selectedWire;
 
-            Debug.Log(CanConnect(other.OutputNode));
-
             if (CanConnect(other.OutputNode))
             {
                 //link the nodes together
