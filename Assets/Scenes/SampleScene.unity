@@ -245,6 +245,7 @@ MonoBehaviour:
   gateNameInput: {fileID: 353985864}
   randomColor: {r: 0, g: 0, b: 0, a: 0}
   customGate: {fileID: 0}
+  _DEBUG: 0
 --- !u!114 &198210227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,8 +1083,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4573198655752490593, guid: 9135c99ac0924484a9aebf542118b10f,
         type: 3}
+      propertyPath: _DEBUG
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573198655752490593, guid: 9135c99ac0924484a9aebf542118b10f,
+        type: 3}
       propertyPath: fileName
-      value: NAND
+      value: OR
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573198655752490593, guid: 9135c99ac0924484a9aebf542118b10f,
+        type: 3}
+      propertyPath: isDragging
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4573198655752490600, guid: 9135c99ac0924484a9aebf542118b10f,
         type: 3}
@@ -1144,6 +1155,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Custom_Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573198655752490603, guid: 9135c99ac0924484a9aebf542118b10f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9135c99ac0924484a9aebf542118b10f, type: 3}
