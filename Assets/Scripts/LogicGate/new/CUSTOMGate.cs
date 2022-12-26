@@ -100,7 +100,7 @@ namespace Logic
                     default:
                         //if it has an empty one that means it is the custom gate insides
                         if (DATA.GateSpawnFormat[i] == "") { AllGatesForCustomGate.Add(this); continue; }
-
+                        if (DATA.GateSpawnFormat[i] == this.fileName) { Destroy(this.gameObject); }
                         prefabCUSTOM.GetComponent<CUSTOMGate>().fileName = DATA.GateSpawnFormat[i];
                         LogicComponent custom = Instantiate(prefabCUSTOM, parent).GetComponent<CUSTOMGate>();
                         custom.isLocal = true;
