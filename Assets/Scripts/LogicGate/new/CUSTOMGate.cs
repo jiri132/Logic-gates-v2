@@ -13,6 +13,7 @@ namespace Logic
         [Header("Base variable")]
         public string fileName;
         public Color gateColor;
+        public bool _DEBUG = false;
 
         private SpriteRenderer sr;
         public SpriteRenderer sr2;
@@ -120,28 +121,44 @@ namespace Logic
                 int ConnectionID = DATA.Connections[i].Item3;
                 int ConnectionIDInput = DATA.Connections[i].Item4;
 
-                Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
-                Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
+                if (_DEBUG)
+                {
+                    Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
+                    Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
+                }
 
                 LogicComponent lc = AllGatesForCustomGate[ID];
 
-                if (lc.GetType() != typeof(CUSTOMGate))
+                if (lc.GetType() == typeof(CUSTOMGate))
                 {
-                    if (ConnectionID != 0)
+                    if (ID == 0)
                     {
-                        OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
+                        CustomNode node = AllGatesForCustomGate[ID].inputs[IDOutput] as CustomNode;
                         node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
-                        
-                    }else
+                    }
+                    else if (ConnectionID == 0)
                     {
-                        OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
+                        //when it has to connect to the main customgate connect to the END point
+                        CustomNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as CustomNode;
                         node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].outputs[ConnectionIDInput]);
+                    }
+                    else
+                    {
+                        Debug.LogError("Error Need more then ID or ConnectionID");
                     }
                 }
                 else
                 {
-                    CustomNode node = AllGatesForCustomGate[ID].inputs[IDOutput] as CustomNode;
-                    node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
+                    if (ConnectionID == 0)
+                    {
+                        OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
+                        node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].outputs[ConnectionIDInput]);
+                    }
+                    else
+                    {
+                        OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
+                        node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
+                    }
                 }
             }
         } 
