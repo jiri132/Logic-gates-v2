@@ -11,6 +11,7 @@ public class Enviorment : Singleton<Enviorment>
     public InputField gateNameInput;
     public Color randomColor;
     public LogicComponent customGate;
+    public bool _DEBUG = false;
 
     private void Start()
     {
@@ -20,7 +21,6 @@ public class Enviorment : Singleton<Enviorment>
 
     public void CreateNewGate()
     {
-        SaveSystem1.SaveGate(new GateData(), gateNameInput.text);
+        SaveSystem1.SaveGate(new GateData(_DEBUG), gateNameInput.text);
     }
-
 }

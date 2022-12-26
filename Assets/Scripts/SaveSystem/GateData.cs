@@ -24,7 +24,7 @@ public class GateData
     public List<Tuple<int, int, int, int>> Connections = new List<Tuple<int, int, int, int>>();
 
    
-    public GateData()
+    public GateData(bool DEBUG)
     {
         Name = Enviorment.Instance.gateNameInput.text;
         rgb = new float[3] { Enviorment.Instance.randomColor.r, Enviorment.Instance.randomColor.g, Enviorment.Instance.randomColor.b };
@@ -41,14 +41,12 @@ public class GateData
             GateSpawnFormat.Add(i, gate.name);
         }
 
-
-
-
         //Add the Relaitons
         for (int i = 0; i < NumberOfGates; i++)
         {
             LogicComponent gate = GameManager.Instance.AllGates[i];
 
+            //Relations from the inputs of enviormentgate
             if (gate.GetType() == typeof(EnviormentGate))
             {
                 for (int x = 0; x < gate.inputs.Length; x++)
@@ -79,6 +77,7 @@ public class GateData
                 }
             }
 
+            //All outputs relations saving
             for (int j = 0; j < gate.outputs.Length; j++)
             {
                 if (gate.GetType() == typeof(CUSTOMGate) || gate.GetType() == typeof(EnviormentGate))
@@ -86,21 +85,17 @@ public class GateData
                     CustomNode output = gate.outputs[j] as CustomNode;
                     for (int k = 0; k < output.Links.relations.Count; k++)
                     {
-
-
                         //copy of the relations
-                        List<Relation> _relation;
-
-                        if (gate.GetType() == typeof(CUSTOMGate))
-                        {
-                            _relation = (output.Links.relations);
-                        }else { _relation = (gate.outputs[j] as OutputNode).Links.relations; }
+                        List<Relation> _relation = output.Links.relations;
 
                         //copy form the relation gate
                         LogicComponent relationGate = _relation[k].inputNode.ownGate;
 
-                        Debug.Log($"GateID: {i} | GateOutputID: {j}");
-                        Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[k].inputNode.nodeID}");
+                        if (DEBUG)
+                        {
+                            Debug.Log($"GateID: {i} | GateOutputID: {j}");
+                            Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[k].inputNode.nodeID}");
+                        }
 
                         int ID = i; // i is the ID from the gate
                         int IDOutput = j; // j is the ID of output node
@@ -125,8 +120,11 @@ public class GateData
                         //copy form the relation gate
                         LogicComponent relationGate = _relation[k].inputNode.ownGate;
 
-                        Debug.Log($"GateID: {i} | GateOutputID: {j}");
-                        Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[k].inputNode.nodeID}");
+                        if (DEBUG)
+                        {
+                            Debug.Log($"GateID: {i} | GateOutputID: {j}");
+                            Debug.Log($"ConnectionID: {relationGate.ID} | ConnectionInputID: {_relation[k].inputNode.nodeID}");
+                        }
 
                         int ID = i; // i is the ID from the gate
                         int IDOutput = j; // j is the ID of output node
