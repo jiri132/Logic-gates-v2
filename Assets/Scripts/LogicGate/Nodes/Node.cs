@@ -39,6 +39,8 @@ namespace Logic.Nodes
         {
             nodeUI = this.GetComponent<SpriteRenderer>();
             ownGate = this.GetComponentInParent<LogicComponent>();
+
+            if (ownGate.isLocal) { nodeUI.enabled = false; }
         }
 
         private void _propegation() => ownGate.Propegation();
