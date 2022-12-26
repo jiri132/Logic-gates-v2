@@ -77,6 +77,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: custom_node_Input Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 666568823175715439, guid: 443a25f289f4837489522f90d3b8c01a,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2413806693520163455, guid: 1e558c304d261d746af5ace970acf4b0,
+        type: 3}
+    - target: {fileID: 666568823175715439, guid: 443a25f289f4837489522f90d3b8c01a,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7185289561057750119, guid: 443a25f289f4837489522f90d3b8c01a,
         type: 3}
       propertyPath: onGate

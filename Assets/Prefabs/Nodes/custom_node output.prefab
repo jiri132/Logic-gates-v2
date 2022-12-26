@@ -112,7 +112,6 @@ MonoBehaviour:
   nodeUI: {fileID: 0}
   Wires: []
   ownGate: {fileID: 0}
-  parentGate: {fileID: 0}
   Links:
     self: {fileID: 0}
     relations: []
