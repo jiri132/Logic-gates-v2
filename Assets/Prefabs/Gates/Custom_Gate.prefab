@@ -227,8 +227,9 @@ MonoBehaviour:
   gateText: {fileID: 4573198656443323393}
   _inputs: []
   _outputs: []
-  fileName: 
+  fileName: NAND
   gateColor: {r: 0, g: 0, b: 0, a: 0}
+  _DEBUG: 0
   sr2: {fileID: 4573198655469877582}
   parent: {fileID: 289334765015450915}
   prefabNOT: {fileID: 26727427769349054, guid: b3c32becabcb733468c579092f9501fa, type: 3}

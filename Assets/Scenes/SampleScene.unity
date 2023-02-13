@@ -2865,7 +2865,7 @@ PrefabInstance:
     - target: {fileID: 4573198655752490593, guid: 9135c99ac0924484a9aebf542118b10f,
         type: 3}
       propertyPath: fileName
-      value: NAND
+      value: XOR
       objectReference: {fileID: 0}
     - target: {fileID: 4573198655752490593, guid: 9135c99ac0924484a9aebf542118b10f,
         type: 3}

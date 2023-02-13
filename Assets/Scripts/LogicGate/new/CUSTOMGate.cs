@@ -100,9 +100,14 @@ namespace Logic
                     default:
                         //if it has an empty one that means it is the custom gate insides
                         if (DATA.GateSpawnFormat[i] == "") { AllGatesForCustomGate.Add(this); continue; }
-                        if (DATA.GateSpawnFormat[i] == this.fileName) { Destroy(this.gameObject); }
+                        //if (DATA.GateSpawnFormat[i] == this.fileName) { Destroy(this.gameObject); }
+                        
+                        //set the file name
                         prefabCUSTOM.GetComponent<CUSTOMGate>().fileName = DATA.GateSpawnFormat[i];
+                        
+                        //spawn the object and get logiccomponent
                         LogicComponent custom = Instantiate(prefabCUSTOM, parent).GetComponent<CUSTOMGate>();
+                        //apply variables
                         custom.isLocal = true;
                         custom.Local_ID = AllGatesForCustomGate.Count;
                         AllGatesForCustomGate.Add(custom);
@@ -121,11 +126,11 @@ namespace Logic
                 int ConnectionID = DATA.Connections[i].Item3;
                 int ConnectionIDInput = DATA.Connections[i].Item4;
 
-                if (_DEBUG)
+                /*if (_DEBUG)
                 {
                     Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
                     Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
-                }
+                }*/
 
                 LogicComponent lc = AllGatesForCustomGate[ID];
 
@@ -144,7 +149,15 @@ namespace Logic
                     }
                     else
                     {
-                        Debug.LogError("Error Need more then ID or ConnectionID");
+/*                        if (_DEBUG)
+                        {
+                            Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
+                            Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
+
+                            Debug.LogError("Error Need more then ID or ConnectionID");
+                        }*/
+                        CustomNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as CustomNode;
+                        node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
                     }
                 }
                 else
