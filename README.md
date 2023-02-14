@@ -5,11 +5,11 @@ This project would be an logic gates simulation based uppon and & not gates to c
 After lon hesitation of not knowing how to start this project I just started creating the project and got a far way!
 
 ## All features
-- [ ] Basic gates
-- [ ] Custom gates
-- [ ] Enviorments
-- [ ] Save files
-- [ ] Config files
+- [x] Basic gates
+- [x] Custom gates
+- [x] Enviorments
+- [x] Save files
+- [x] Config files
 
 ### To be coming
 - [ ] 7 Segment display
