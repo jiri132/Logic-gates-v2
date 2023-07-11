@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 using Extentions.Singleton;
 
 public class LogicSettings : Singleton<LogicSettings>
@@ -18,5 +18,7 @@ public class LogicSettings : Singleton<LogicSettings>
 
     [Header("Savefile prefix")]
     public string prefix = ".gate";
-
+/*
+    [Header("Path")]
+    public string path = ;*/
 }

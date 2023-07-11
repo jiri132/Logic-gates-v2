@@ -35,26 +35,53 @@ namespace Logic
 
         private void Awake()
         {
-            //load the data
-            DATA = SaveSystem1.LoadGate(fileName);
+            //DATA = SaveSystem1.LoadGate(fileName);
+            GetData(); 
+           
             sr = GetComponent<SpriteRenderer>();
 
             SetIO();
         }
 
+        private void Start()
+        {
+            gateText = GetComponentInChildren<Text>();
+            transform.name = "CustomGate " + Local_ID + " " + fileName;
+            SetData();
 
+            base.Setup(DATA.Name);
+        }
+
+        private void GetData() => Enviorment.Instance.DictionaryOfGateData.TryGetValue(fileName, out DATA);
+
+        /// <summary>
+        /// Applying all the data we got form the .gate files
+        /// </summary>
         private void SetData()
         {
-            //color the gate
-            gateColor = new Color(DATA.rgb[0], DATA.rgb[1], DATA.rgb[2]);
-            sr.color = gateColor;
-            sr2.color = gateColor * 0.4f;
+            SetColor(new Color(DATA.rgb[0], DATA.rgb[1], DATA.rgb[2]));
 
             CreateGatesUsed();
 
             rebuildConnections();
         }
 
+        /// <summary>
+        /// USed to change the color of a gate
+        /// </summary>
+        /// <param name="c">color of the gate</param>
+        public void SetColor(Color c)
+        {
+            //color the gate
+            gateColor = c;
+            sr.color = gateColor;
+            sr2.color = gateColor * 0.4f;
+        }
+
+        #region Privates Setups
+        /// <summary>
+        /// Create the Input Output system
+        /// </summary>
         private void SetIO()
         {
             List<Node> nodesList = new List<Node>();
@@ -76,11 +103,16 @@ namespace Logic
             outputs = nodesList.ToArray();
         }
 
+        /// <summary>
+        /// Create the gates needed to execute things
+        /// </summary>
         private void CreateGatesUsed()
         {
             //add the gates in the order of instantiating
             for (int i = 0; i < DATA.NumberOfGates; i++)
             {
+                Debug.Log(DATA.GateSpawnFormat[i]);
+
                 switch (DATA.GateSpawnFormat[i])
                 {
                     case "NOT":
@@ -98,15 +130,19 @@ namespace Logic
                         break;
                     //when the gate is not a basic not or and gate it makes the custom gate with the correct filename
                     default:
-                        //if it has an empty one that means it is the custom gate insides
+                        // When encountering the same gate add himself to the list and Continue;
                         if (DATA.GateSpawnFormat[i] == "") { AllGatesForCustomGate.Add(this); continue; }
-                        //if (DATA.GateSpawnFormat[i] == this.fileName) { Destroy(this.gameObject); }
                         
+                        //if (DATA.GateSpawnFormat[i] == this.fileName) { Destroy(this.gameObject); }
+                            
+                        //Else instantiate the gate and add the file name to it
+
                         //set the file name
                         prefabCUSTOM.GetComponent<CUSTOMGate>().fileName = DATA.GateSpawnFormat[i];
                         
                         //spawn the object and get logiccomponent
                         LogicComponent custom = Instantiate(prefabCUSTOM, parent).GetComponent<CUSTOMGate>();
+
                         //apply variables
                         custom.isLocal = true;
                         custom.Local_ID = AllGatesForCustomGate.Count;
@@ -116,6 +152,9 @@ namespace Logic
             }
         }
 
+        /// <summary>
+        /// Rebuild the connections of the custom gate
+        /// </summary>
         private void rebuildConnections()
         {
             //rebuild the connections
@@ -131,7 +170,7 @@ namespace Logic
                     Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
                     Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
                 }*/
-
+ 
                 LogicComponent lc = AllGatesForCustomGate[ID];
 
                 if (lc.GetType() == typeof(CUSTOMGate))
@@ -149,24 +188,25 @@ namespace Logic
                     }
                     else
                     {
-/*                        if (_DEBUG)
+                       if (Enviorment.Instance._DEBUG)
                         {
                             Debug.Log("FROM: " + ID + " |  TO: " + ConnectionID);
                             Debug.Log("Output: " + IDOutput + " |  Input: " + ConnectionIDInput);
 
-                            Debug.LogError("Error Need more then ID or ConnectionID");
-                        }*/
+                            //Debug.LogError("Error Need more then ID or ConnectionID");
+                        }
                         CustomNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as CustomNode;
                         node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].inputs[ConnectionIDInput]);
                     }
                 }
                 else
                 {
+                    // When it is connecting to the Actual custom gate
                     if (ConnectionID == 0)
                     {
                         OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
                         node.Links.CreateRelation(AllGatesForCustomGate[ConnectionID].outputs[ConnectionIDInput]);
-                    }
+                    } // When it has not to be connected to the actual gate
                     else
                     {
                         OutputNode node = AllGatesForCustomGate[ID].outputs[IDOutput] as OutputNode;
@@ -174,17 +214,9 @@ namespace Logic
                     }
                 }
             }
-        } 
-
-
-        private void Start()
-        {
-            SetData();
-
-            gateText = GetComponentInChildren<Text>();
-
-            base.Setup(DATA.Name);
         }
+        #endregion 
+
     }
 }
 

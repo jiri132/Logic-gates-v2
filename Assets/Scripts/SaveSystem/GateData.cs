@@ -23,7 +23,7 @@ public class GateData
     //format <ID,Output of ID, Conneciton ID, input of connection>
     public List<Tuple<int, int, int, int>> Connections = new List<Tuple<int, int, int, int>>();
 
-   
+    // SET gate data for storing purposes
     public GateData(bool DEBUG)
     {
         Name = Enviorment.Instance.gateNameInput.text;

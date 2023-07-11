@@ -56,7 +56,9 @@ namespace Logic
         public void Setup(string name)
         {
             NameSetup(name);
-            Invoke("Propegation", LogicSettings.Instance.interval);
+            
+            if (Type != TYPES.CUSTOM)
+                Invoke("Propegation", LogicSettings.Instance.interval);
 
             if (!isLocal)
             {
@@ -100,8 +102,5 @@ namespace Logic
         }
 
         #endregion
-
-
-
     }
 }
